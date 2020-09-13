@@ -8,23 +8,31 @@ public class InputManager : MonoBehaviour {
     public GroundCheck groundcheck;
 
     void Update () {
-        // Character Walk to left
-        if (Input.GetKey (KeyCode.A)) {
-            actions.Walk (-1);
-        }
-        // Character Walk to right
-        if (Input.GetKey (KeyCode.D)) {
-            actions.Walk (1);
-        }
-        // Character Jump
-        if (Input.GetKeyDown (KeyCode.W)) {
-            if (groundcheck.onGround == true) {
-                actions.Jump ();
+        if (character.stats.characterDie == false) {
+            // Character Walk to left
+            if (Input.GetKey (KeyCode.A)) {
+                actions.Walk (-1);
             }
-        }
-        // Character IDLE
-        if (!Input.anyKey || Input.GetKey (KeyCode.D) && Input.GetKey (KeyCode.A)) {
-            actions.Idle ();
+            // Character Walk to right
+            if (Input.GetKey (KeyCode.D)) {
+                actions.Walk (1);
+            }
+            // Character Jump
+            if (Input.GetKeyDown (KeyCode.W)) {
+                if (groundcheck.onGround == true) {
+                    actions.Jump ();
+                }
+            }
+            // Character Attack
+            if (Input.GetKey (KeyCode.P)) {
+                actions.Attack ();
+            }
+            // Character IDLE
+            if (!Input.anyKey || Input.GetKey (KeyCode.D) && Input.GetKey (KeyCode.A)) {
+                actions.Idle ();
+            }
+        } else {
+            actions.Die ();
         }
     }
 }

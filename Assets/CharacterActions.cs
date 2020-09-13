@@ -10,7 +10,9 @@ public class CharacterActions : MonoBehaviour {
     public enum states {
         IDLE,
         WALKING,
-        JUMPING
+        JUMPING,
+        ATTACKING,
+        DEATH
     }
 
     // Character IDLE function
@@ -54,5 +56,21 @@ public class CharacterActions : MonoBehaviour {
         state = states.JUMPING;
         // Animations 
         animations.jumpAnimation ();
+    }
+
+    // Character Attack function
+    public void Attack () {
+        // State
+        state = states.ATTACKING;
+        // Animations
+        animations.attackAnimation ();
+    }
+
+    // Character Die function
+    public void Die () {
+        // State
+        state = states.DEATH;
+        // Animations
+        animations.dieAnimation ();
     }
 }
