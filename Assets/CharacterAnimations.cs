@@ -38,6 +38,7 @@ public class CharacterAnimations : MonoBehaviour {
         anim.SetBool ("isJumping", false);
         anim.SetBool ("isWalking", false);
         anim.SetBool ("isDying", false);
+        anim.SetBool ("isAttacking", false);
         anim.SetBool ("isAttacking", true);
     }
 

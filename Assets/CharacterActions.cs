@@ -62,6 +62,7 @@ public class CharacterActions : MonoBehaviour {
     public void Attack () {
         // State
         state = states.ATTACKING;
+        character.stats.characterAttack = true;
         // Animations
         animations.attackAnimation ();
     }

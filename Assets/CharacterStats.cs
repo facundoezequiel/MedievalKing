@@ -14,6 +14,7 @@ public class CharacterStats : MonoBehaviour {
     public float liveRegeneratePoints = 1;
     public bool characterDie = false;
     // Attack and defense
+    public bool characterAttack = false;
     public float characterForce = 5;
     public float characterResistence = 5;
 

@@ -6,6 +6,7 @@ public class InputManager : MonoBehaviour {
     public Character character;
     public CharacterActions actions;
     public GroundCheck groundcheck;
+    public BlackEnemy blackEnemy;
 
     void Update () {
         if (character.stats.characterDie == false) {
@@ -24,7 +25,10 @@ public class InputManager : MonoBehaviour {
                 }
             }
             // Character Attack
-            if (Input.GetKey (KeyCode.P)) {
+            if (Input.GetKeyDown (KeyCode.P)) {
+                if (blackEnemy.characterAttackingZone == true) {
+                    blackEnemy.blackEnemyHurt ();
+                }
                 actions.Attack ();
             }
             // Character IDLE
