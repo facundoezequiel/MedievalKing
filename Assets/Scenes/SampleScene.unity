@@ -11651,7 +11651,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 908993987210472821}
-  FloatingTextPrefab: {fileID: 6233359520802056415, guid: f191f3950be94d649b47ff50270bc240, type: 3}
+  FloatingTextPrefab: {fileID: 1293603593108180, guid: 92d60a2e17d9a4bb8bd3801b14fc2926, type: 3}
   animations: {fileID: 908993987210472823}
   showLiveInText: 0
   groundcheck: {fileID: 2124862167}
@@ -11850,7 +11850,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 5
+  m_Constraints: 4
 --- !u!61 &5064254804861257446
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11929,7 +11929,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 908993987210472821}
   anim: {fileID: 5087687141019520404}
-  FloatingTextPrefab: {fileID: 6233359520802056415, guid: f191f3950be94d649b47ff50270bc240, type: 3}
+  FloatingTextPrefab: {fileID: 1293603593108180, guid: 92d60a2e17d9a4bb8bd3801b14fc2926, type: 3}
   blackEnemyLive: 40
   blackEnemyMoveSpeed: 7
   blackEnemyMinForce: 2

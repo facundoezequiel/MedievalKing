@@ -55,10 +55,11 @@ public class BlackEnemy : MonoBehaviour {
         if (blackEnemyLive > 0) {
             if (character.stats.characterForce == character.stats.characterMaxForce - 1) {
                 FloatingText.GetComponent<TextMesh> ().color = Color.red;
+                FloatingText.GetComponent<TextMesh> ().text = "Stuned! " + character.stats.characterForce.ToString ();;
             } else {
                 FloatingText.GetComponent<TextMesh> ().color = Color.white;
+                FloatingText.GetComponent<TextMesh> ().text = character.stats.characterForce.ToString ();
             }
-            FloatingText.GetComponent<TextMesh> ().text = character.stats.characterForce.ToString ();
         } else {
             FloatingText.GetComponent<TextMesh> ().color = Color.red;
             FloatingText.GetComponent<TextMesh> ().text = "Dead!";
