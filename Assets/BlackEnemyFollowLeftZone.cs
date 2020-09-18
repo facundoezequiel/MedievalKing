@@ -16,17 +16,12 @@ public class BlackEnemyFollowLeftZone : MonoBehaviour {
     private void OnTriggerEnter2D (Collider2D collider) {
         if (collider.tag == "Character" && blackEnemy.characterAttackingZone == false) {
             blackEnemy.characterEnterInLeftZone = true;
-            blackEnemy.anim.SetBool ("isWalking", true);
-        } else {
-            blackEnemy.characterEnterInLeftZone = false;
-            blackEnemy.anim.SetBool ("isWalking", false);
         }
     }
 
     private void OnTriggerExit2D (Collider2D collider) {
         if (collider.tag == "Character") {
             blackEnemy.characterEnterInLeftZone = false;
-            blackEnemy.anim.SetBool ("isWalking", false);
         }
     }
 }

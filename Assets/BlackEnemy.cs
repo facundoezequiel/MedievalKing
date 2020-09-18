@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BlackEnemy : MonoBehaviour {
     public Character character;
     public Animator anim;
     private Transform target;
+    public GameObject FloatingTextPrefab;
     public float blackEnemyLive = 40;
     public float blackEnemyMoveSpeed = 7;
+    public bool enemyRecover = false;
     public bool characterAttackingZone = false;
     public bool characterEnterInRightZone = false;
     public bool characterEnterInLeftZone = false;
@@ -16,22 +19,102 @@ public class BlackEnemy : MonoBehaviour {
 
     void Start () {
         anim = GetComponent<Animator> ();
-        blackEnemyIdle ();
         target = GameObject.FindGameObjectWithTag ("Character").GetComponent<Transform> ();
     }
 
     void Update () {
-        if (blackEnemyLive != 0 && characterEnterInLeftZone == true || characterEnterInRightZone == true) {
-            blackEnemyRotation ();
-            transform.position = Vector2.MoveTowards (transform.position, target.position, blackEnemyMoveSpeed * Time.deltaTime);
-        } else if (blackEnemyLive == 0) {
+        if (blackEnemyLive > 0) {
+            if (characterEnterInLeftZone == true || characterEnterInRightZone == true) {
+                BlackEnemyRotation ();
+                if (characterAttackingZone == false) {
+                    BlackEnemyWalk ();
+                } else {
+                    if (Input.GetKeyDown (KeyCode.P)) {
+                        BlackEnemyHurt ();
+                    } else {
+                        if (enemyRecover == false) {
+                            BlackEnemyAttack ();
+                        }
+                    }
+                }
+            } else {
+                BlackEnemyIdle ();
+            }
+        } else {
+            anim.SetBool ("isWalking", false);
+            anim.SetBool ("isHurt", false);
             anim.SetBool ("isDying", true);
-            Invoke ("blackEnemyDie", 1.3f);
             Destroy (GetComponent<BoxCollider2D> ());
+            Invoke ("BlackEnemyDie", 1f);
         }
     }
 
-    public void blackEnemyRotation () {
+    public void ShowFloatingText () {
+        var FloatingText = Instantiate (FloatingTextPrefab, transform.position, Quaternion.identity, transform);
+        if (blackEnemyLive > 0) {
+            if (character.stats.characterForce == character.stats.characterMaxForce - 1) {
+                FloatingText.GetComponent<TextMesh> ().color = Color.red;
+            } else {
+                FloatingText.GetComponent<TextMesh> ().color = Color.white;
+            }
+            FloatingText.GetComponent<TextMesh> ().text = character.stats.characterForce.ToString ();
+        } else {
+            FloatingText.GetComponent<TextMesh> ().color = Color.red;
+            FloatingText.GetComponent<TextMesh> ().text = "Dead!";
+        }
+    }
+
+    public void BlackEnemyIdle () {
+        anim.SetBool ("isWalking", false);
+        anim.SetBool ("isDying", false);
+        anim.SetBool ("isHurt", false);
+        anim.SetBool ("isAttacking", false);
+        anim.SetBool ("isRecover", false);
+    }
+
+    public void BlackEnemyWalk () {
+        anim.SetBool ("isDying", false);
+        anim.SetBool ("isHurt", false);
+        anim.SetBool ("isAttacking", false);
+        anim.SetBool ("isRecover", false);
+        anim.SetBool ("isWalking", true);
+        transform.position = Vector2.MoveTowards (transform.position, target.position, blackEnemyMoveSpeed * Time.deltaTime);
+    }
+
+    public void BlackEnemyAttack () {
+        anim.SetBool ("isWalking", false);
+        anim.SetBool ("isDying", false);
+        anim.SetBool ("isHurt", false);
+        anim.SetBool ("isRecover", false);
+        anim.SetBool ("isAttacking", true);
+    }
+
+    public void BlackEnemyHurt () {
+        blackEnemyLive = blackEnemyLive - character.stats.characterForce;
+        if (character.stats.characterForce < character.stats.characterMaxForce - 1) {
+            anim.SetBool ("isWalking", false);
+            anim.SetBool ("isDying", false);
+            anim.SetBool ("isAttacking", false);
+            anim.SetBool ("isRecover", false);
+            anim.SetBool ("isHurt", true);
+            enemyRecover = false;
+        } else if (character.stats.characterForce == character.stats.characterMaxForce - 1) {
+            anim.SetBool ("isWalking", false);
+            anim.SetBool ("isDying", false);
+            anim.SetBool ("isAttacking", false);
+            anim.SetBool ("isHurt", false);
+            anim.SetBool ("isRecover", true);
+            enemyRecover = true;
+            Invoke ("EnemyGettingUp", 0.7f);
+        }
+        ShowFloatingText ();
+    }
+
+    public void EnemyGettingUp () {
+        enemyRecover = false;
+    }
+
+    public void BlackEnemyRotation () {
         if (characterEnterInLeftZone == true) {
             transform.localRotation = Quaternion.Euler (0, 0, 0);
         } else if (characterEnterInRightZone == true) {
@@ -39,19 +122,7 @@ public class BlackEnemy : MonoBehaviour {
         }
     }
 
-    public void blackEnemyIdle () {
-        anim.SetBool ("isWalking", false);
-        anim.SetBool ("isDying", false);
-        anim.SetBool ("isHurt", false);
-    }
-
-    public void blackEnemyHurt () {
-        blackEnemyLive = blackEnemyLive - 10;
-        anim.SetBool ("isHurt", true);
-        Invoke ("blackEnemyIdle", 0.3f);
-    }
-
-    public void blackEnemyDie () {
+    public void BlackEnemyDie () {
         Destroy (this.gameObject);
     }
 }

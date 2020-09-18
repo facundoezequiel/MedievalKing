@@ -13,14 +13,19 @@ public class CharacterStats : MonoBehaviour {
     public float liveRegenerateVelocity = 0.5f;
     public float liveRegeneratePoints = 1;
     public bool characterDie = false;
-    // Attack and defense
+    // Attack
     public bool characterAttack = false;
-    public float characterForce = 5;
+    public int characterMinForce = 2;
+    public int characterMaxForce = 8;
+    public int characterForce = 7;
+    // Defense
     public float characterResistence = 5;
 
     void Start () {
         // Character live function
         liveDieRegeneration ();
+        // Frist random character force on start
+        characterForce = Random.Range (characterMinForce, characterMaxForce);
     }
 
     void Update () {

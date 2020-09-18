@@ -26,9 +26,6 @@ public class InputManager : MonoBehaviour {
             }
             // Character Attack
             if (Input.GetKeyDown (KeyCode.P)) {
-                if (blackEnemy.characterAttackingZone == true) {
-                    blackEnemy.blackEnemyHurt ();
-                }
                 actions.Attack ();
             }
             // Character IDLE

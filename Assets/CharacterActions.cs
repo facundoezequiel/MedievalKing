@@ -60,6 +60,8 @@ public class CharacterActions : MonoBehaviour {
 
     // Character Attack function
     public void Attack () {
+        // Random force
+        character.stats.characterForce = Random.Range (character.stats.characterMinForce, character.stats.characterMaxForce);
         // State
         state = states.ATTACKING;
         character.stats.characterAttack = true;
