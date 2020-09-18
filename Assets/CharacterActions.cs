@@ -4,76 +4,86 @@ using UnityEngine;
 
 public class CharacterActions : MonoBehaviour {
     public Character character;
+    public GameObject FloatingTextPrefab;
     public CharacterAnimations animations;
+    public float showLiveInText;
     public GroundCheck groundcheck;
     public states state;
     public enum states {
         IDLE,
         WALKING,
         JUMPING,
+        HURT,
         ATTACKING,
         DEATH
     }
 
-    // Character IDLE function
+    public void ShowFloatingText () {
+        // Chequar bien esto y tambien en black enemy attack
+        var FloatingText = Instantiate (FloatingTextPrefab, transform.position, Quaternion.identity, transform);
+        if (character.stats.characterLive > 0) {
+            if (showLiveInText != 0) {
+                FloatingText.GetComponent<TextMesh> ().color = Color.white;
+                FloatingText.GetComponent<TextMesh> ().text = showLiveInText.ToString ();
+            } else {
+                FloatingText.GetComponent<TextMesh> ().color = Color.green;
+                FloatingText.GetComponent<TextMesh> ().text = "Esquivo";
+            }
+        } else {
+            FloatingText.GetComponent<TextMesh> ().color = Color.red;
+            FloatingText.GetComponent<TextMesh> ().text = "Dead!";
+        }
+    }
+
     public void Idle () {
-        // State
         state = states.IDLE;
-        // Animations
+        character.stats.characterAttack = false;
         animations.idleAnimation ();
     }
 
-    // Character Walk function
     public void Walk (int direction) {
         Vector3 movement = new Vector3 (direction, 0f, 0f);
         transform.position += movement * Time.deltaTime * character.stats.moveSpeed;
-        // Character direction rotation
+        character.stats.characterAttack = false;
         if (direction == 1) {
-            // Right
             transform.localRotation = Quaternion.Euler (0, 0, 0);
         } else {
-            // Left
             transform.localRotation = Quaternion.Euler (0, 180, 0);
         }
-        // If character on ground
+
         if (groundcheck.onGround == true) {
-            // Animation
             animations.walkAnimation ();
-            // State
             state = states.WALKING;
         } else {
-            // Animation
             animations.jumpAnimation ();
-            // State
             state = states.JUMPING;
         }
     }
 
-    // Character Jump function
     public void Jump () {
         gameObject.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0f, character.stats.jumpForce), ForceMode2D.Impulse);
-        // State
         state = states.JUMPING;
-        // Animations 
+        character.stats.characterAttack = false;
         animations.jumpAnimation ();
     }
 
-    // Character Attack function
     public void Attack () {
-        // Random force
         character.stats.characterForce = Random.Range (character.stats.characterMinForce, character.stats.characterMaxForce);
-        // State
         state = states.ATTACKING;
         character.stats.characterAttack = true;
-        // Animations
         animations.attackAnimation ();
     }
 
-    // Character Die function
+    public void Hurt () {
+        state = states.HURT;
+        ShowFloatingText ();
+        character.stats.characterAttack = false;
+        animations.hurtAnimation ();
+    }
+
     public void Die () {
-        // State
         state = states.DEATH;
-        // Animations
+        character.stats.characterAttack = false;
         animations.dieAnimation ();
     }
 }

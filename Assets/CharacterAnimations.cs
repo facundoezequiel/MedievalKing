@@ -11,18 +11,20 @@ public class CharacterAnimations : MonoBehaviour {
 
     // Walk animation
     public void walkAnimation () {
-        anim.SetBool ("isWalking", true);
         anim.SetBool ("isJumping", false);
         anim.SetBool ("isDying", false);
         anim.SetBool ("isAttacking", false);
+        anim.SetBool ("isHurt", false);
+        anim.SetBool ("isWalking", true);
     }
 
     // Jump animation
     public void jumpAnimation () {
-        anim.SetBool ("isJumping", true);
         anim.SetBool ("isWalking", false);
         anim.SetBool ("isDying", false);
+        anim.SetBool ("isHurt", false);
         anim.SetBool ("isAttacking", false);
+        anim.SetBool ("isJumping", true);
     }
 
     // IDLE animation
@@ -30,6 +32,7 @@ public class CharacterAnimations : MonoBehaviour {
         anim.SetBool ("isJumping", false);
         anim.SetBool ("isWalking", false);
         anim.SetBool ("isDying", false);
+        anim.SetBool ("isHurt", false);
         anim.SetBool ("isAttacking", false);
     }
 
@@ -38,8 +41,18 @@ public class CharacterAnimations : MonoBehaviour {
         anim.SetBool ("isJumping", false);
         anim.SetBool ("isWalking", false);
         anim.SetBool ("isDying", false);
+        anim.SetBool ("isHurt", false);
         anim.SetBool ("isAttacking", false);
         anim.SetBool ("isAttacking", true);
+    }
+
+    // Hurt animation
+    public void hurtAnimation () {
+        anim.SetBool ("isJumping", false);
+        anim.SetBool ("isWalking", false);
+        anim.SetBool ("isDying", false);
+        anim.SetBool ("isAttacking", false);
+        anim.SetBool ("isHurt", true);
     }
 
     // Die animation
@@ -47,6 +60,7 @@ public class CharacterAnimations : MonoBehaviour {
         anim.SetBool ("isJumping", false);
         anim.SetBool ("isWalking", false);
         anim.SetBool ("isAttacking", false);
+        anim.SetBool ("isHurt", false);
         anim.SetBool ("isDying", true);
     }
 }

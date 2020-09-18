@@ -10,6 +10,9 @@ public class BlackEnemy : MonoBehaviour {
     public GameObject FloatingTextPrefab;
     public float blackEnemyLive = 40;
     public float blackEnemyMoveSpeed = 7;
+    public int blackEnemyMinForce = 2;
+    public int blackEnemyMaxForce = 7;
+    public int blackEnemyForce = 5;
     public bool enemyRecover = false;
     public bool characterAttackingZone = false;
     public bool characterEnterInRightZone = false;
@@ -31,10 +34,8 @@ public class BlackEnemy : MonoBehaviour {
                 } else {
                     if (Input.GetKeyDown (KeyCode.P)) {
                         BlackEnemyHurt ();
-                    } else {
-                        if (enemyRecover == false) {
-                            BlackEnemyAttack ();
-                        }
+                    } else if (enemyRecover == false) {
+                        BlackEnemyAttack ();
                     }
                 }
             } else {
@@ -73,20 +74,37 @@ public class BlackEnemy : MonoBehaviour {
     }
 
     public void BlackEnemyWalk () {
-        anim.SetBool ("isDying", false);
-        anim.SetBool ("isHurt", false);
-        anim.SetBool ("isAttacking", false);
-        anim.SetBool ("isRecover", false);
-        anim.SetBool ("isWalking", true);
-        transform.position = Vector2.MoveTowards (transform.position, target.position, blackEnemyMoveSpeed * Time.deltaTime);
+        if (enemyRecover == false) {
+            anim.SetBool ("isDying", false);
+            anim.SetBool ("isHurt", false);
+            anim.SetBool ("isAttacking", false);
+            anim.SetBool ("isRecover", false);
+            anim.SetBool ("isWalking", true);
+            transform.position = Vector2.MoveTowards (transform.position, target.position, blackEnemyMoveSpeed * Time.deltaTime);
+        }
     }
 
     public void BlackEnemyAttack () {
-        anim.SetBool ("isWalking", false);
-        anim.SetBool ("isDying", false);
-        anim.SetBool ("isHurt", false);
-        anim.SetBool ("isRecover", false);
-        anim.SetBool ("isAttacking", true);
+        // Chequar bien esto y tambien en character actions
+        var acurrenceAttack = Random.Range (0, 70);
+        if (character.stats.characterDie == false && acurrenceAttack == 69) {
+            blackEnemyForce = Random.Range (blackEnemyMinForce, blackEnemyMaxForce);
+            character.stats.characterLive = character.stats.characterLive - blackEnemyForce;
+            character.actions.showLiveInText = blackEnemyForce;
+            character.actions.Hurt ();
+            anim.SetBool ("isWalking", false);
+            anim.SetBool ("isDying", false);
+            anim.SetBool ("isHurt", false);
+            anim.SetBool ("isRecover", false);
+            anim.SetBool ("isAttacking", true);
+        } else if (character.stats.characterDie == false && acurrenceAttack != 69) {
+            anim.SetBool ("isWalking", false);
+            anim.SetBool ("isDying", false);
+            anim.SetBool ("isHurt", false);
+            anim.SetBool ("isRecover", false);
+            anim.SetBool ("isAttacking", true);
+            character.actions.showLiveInText = 0;
+        }
     }
 
     public void BlackEnemyHurt () {
@@ -123,6 +141,7 @@ public class BlackEnemy : MonoBehaviour {
     }
 
     public void BlackEnemyDie () {
+        characterAttackingZone = false;
         Destroy (this.gameObject);
     }
 }

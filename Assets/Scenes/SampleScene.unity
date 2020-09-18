@@ -11651,7 +11651,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 908993987210472821}
+  FloatingTextPrefab: {fileID: 6233359520802056415, guid: f191f3950be94d649b47ff50270bc240, type: 3}
   animations: {fileID: 908993987210472823}
+  showLiveInText: 0
   groundcheck: {fileID: 2124862167}
   state: 0
 --- !u!114 &908993987210472820
@@ -11675,9 +11677,9 @@ MonoBehaviour:
   liveRegeneratePoints: 1
   characterDie: 0
   characterAttack: 0
-  characterMinForce: 5
-  characterMaxForce: 10
-  characterForce: 5
+  characterMinForce: 2
+  characterMaxForce: 8
+  characterForce: 8
   characterResistence: 5
 --- !u!114 &908993987210472821
 MonoBehaviour:
@@ -11930,6 +11932,10 @@ MonoBehaviour:
   FloatingTextPrefab: {fileID: 6233359520802056415, guid: f191f3950be94d649b47ff50270bc240, type: 3}
   blackEnemyLive: 40
   blackEnemyMoveSpeed: 7
+  blackEnemyMinForce: 2
+  blackEnemyMaxForce: 7
+  blackEnemyForce: 5
+  enemyRecover: 0
   characterAttackingZone: 0
   characterEnterInRightZone: 0
   characterEnterInLeftZone: 0

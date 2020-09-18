@@ -10,7 +10,7 @@ public class CharacterStats : MonoBehaviour {
     // Live
     public float characterLive = 500;
     public float characterMaxLive = 500;
-    public float liveRegenerateVelocity = 0.5f;
+    public float liveRegenerateVelocity = 1f;
     public float liveRegeneratePoints = 1;
     public bool characterDie = false;
     // Attack
@@ -29,15 +29,15 @@ public class CharacterStats : MonoBehaviour {
     }
 
     void Update () {
-        if (characterLive == 0) {
+        if (characterLive < 0) {
             characterDie = true;
         }
     }
 
     public void liveDieRegeneration () {
-        if (characterLive != characterMaxLive && characterDie == false) {
+        if (characterLive < characterMaxLive && characterDie == false) {
             characterLive = characterLive + liveRegeneratePoints;
-            Invoke ("liveDieRegeneration", liveRegenerateVelocity);
         }
+        Invoke ("liveDieRegeneration", liveRegenerateVelocity);
     }
 }
