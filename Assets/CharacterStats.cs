@@ -20,6 +20,9 @@ public class CharacterStats : MonoBehaviour {
     public int characterForce = 7;
     // Defense
     public float characterResistence = 5;
+    // Coins
+    public float coins = 0;
+    public bool takeCoin = false;
 
     void Start () {
         // Character live function

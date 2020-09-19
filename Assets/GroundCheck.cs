@@ -7,7 +7,6 @@ public class GroundCheck : MonoBehaviour {
     public CameraFollow camerafollow;
     public bool onGround = false;
 
-    // Character on ground
     private void OnTriggerEnter2D (Collider2D collider) {
         if (collider.tag == "Ground") {
             onGround = true;
@@ -15,7 +14,6 @@ public class GroundCheck : MonoBehaviour {
         }
     }
 
-    // Character out ground
     private void OnTriggerExit2D (Collider2D collider) {
         if (collider.tag == "Ground") {
             onGround = false;

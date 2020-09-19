@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterActions : MonoBehaviour {
+    public AudioSource coinSound;
     public Character character;
     public GameObject FloatingTextPrefab;
     public CharacterAnimations animations;
+    public Text CoinsText;
     public float showLiveInText;
     public GroundCheck groundcheck;
     public states state;
@@ -19,9 +22,14 @@ public class CharacterActions : MonoBehaviour {
     }
 
     public void ShowFloatingText () {
-        // Chequar bien esto y tambien en black enemy attack
         var FloatingText = Instantiate (FloatingTextPrefab, transform.position, Quaternion.identity, transform);
-        if (character.stats.characterLive > 0) {
+        if (character.stats.takeCoin == true) {
+            FloatingText.GetComponent<TextMesh> ().color = Color.yellow;
+            FloatingText.GetComponent<TextMesh> ().text = "+1";
+            CoinsText.text = character.stats.coins.ToString ();
+            coinSound.Play (0);
+        }
+        if (character.stats.characterLive > 0 && character.stats.takeCoin == false) {
             if (showLiveInText != 0) {
                 FloatingText.GetComponent<TextMesh> ().color = Color.white;
                 FloatingText.GetComponent<TextMesh> ().text = showLiveInText.ToString ();
@@ -29,10 +37,11 @@ public class CharacterActions : MonoBehaviour {
                 FloatingText.GetComponent<TextMesh> ().color = Color.green;
                 FloatingText.GetComponent<TextMesh> ().text = "Esquivo";
             }
-        } else {
+        } else if (character.stats.takeCoin == false) {
             FloatingText.GetComponent<TextMesh> ().color = Color.red;
             FloatingText.GetComponent<TextMesh> ().text = "Dead!";
         }
+        character.stats.takeCoin = false;
     }
 
     public void Idle () {
