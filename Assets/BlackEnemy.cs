@@ -86,7 +86,9 @@ public class BlackEnemy : MonoBehaviour {
     }
 
     public void BlackEnemyAttack () {
-        // Chequar bien esto y tambien en character actions
+        if (character.stats.characterDie == true) {
+            BlackEnemyIdle ();
+        }
         var acurrenceAttack = Random.Range (0, 70);
         if (character.stats.characterDie == false && acurrenceAttack == 69) {
             blackEnemyForce = Random.Range (blackEnemyMinForce, blackEnemyMaxForce);

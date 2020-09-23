@@ -77,10 +77,14 @@ public class CharacterActions : MonoBehaviour {
     }
 
     public void Attack () {
-        character.stats.characterForce = Random.Range (character.stats.characterMinForce, character.stats.characterMaxForce);
-        state = states.ATTACKING;
-        character.stats.characterAttack = true;
-        animations.attackAnimation ();
+        if (character.stats.characterDie == false) {
+            character.stats.characterForce = Random.Range (character.stats.characterMinForce, character.stats.characterMaxForce);
+            state = states.ATTACKING;
+            character.stats.characterAttack = true;
+            animations.attackAnimation ();
+        } else {
+            return;
+        }
     }
 
     public void Hurt () {
