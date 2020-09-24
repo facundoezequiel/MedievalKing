@@ -4,11 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CharacterActions : MonoBehaviour {
+    public Animator HeartAnim;
     public AudioSource coinSound;
     public Character character;
     public GameObject FloatingTextPrefab;
     public CharacterAnimations animations;
     public Text CoinsText;
+    public Text HeartText;
     public float showLiveInText;
     public GroundCheck groundcheck;
     public states state;
@@ -19,6 +21,10 @@ public class CharacterActions : MonoBehaviour {
         HURT,
         ATTACKING,
         DEATH
+    }
+
+    public void Start () {
+        HeartText.text = character.stats.characterLive.ToString ();
     }
 
     public void ShowFloatingText () {
@@ -90,6 +96,8 @@ public class CharacterActions : MonoBehaviour {
     public void Hurt () {
         state = states.HURT;
         ShowFloatingText ();
+        HeartText.text = character.stats.characterLive.ToString ();
+        HeartAnim.Play ("Base Layer.HeartImage", 0, 0.25f);
         character.stats.characterAttack = false;
         animations.hurtAnimation ();
     }
@@ -97,6 +105,7 @@ public class CharacterActions : MonoBehaviour {
     public void Die () {
         state = states.DEATH;
         character.stats.characterAttack = false;
+        HeartText.text = "Dead!";
         animations.dieAnimation ();
     }
 }

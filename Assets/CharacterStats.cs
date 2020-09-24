@@ -1,15 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterStats : MonoBehaviour {
     public Character character;
+    public Animator HeartAnim;
+    public Text HeartText;
     // Move
     public float moveSpeed = 10;
     public float jumpForce = 10;
     // Live
-    public float characterLive = 500;
-    public float characterMaxLive = 500;
+    public float characterLive = 200;
+    public float characterMaxLive = 200;
     public float liveRegenerateVelocity = 1f;
     public float liveRegeneratePoints = 1;
     public bool characterDie = false;
@@ -40,6 +43,8 @@ public class CharacterStats : MonoBehaviour {
     public void liveDieRegeneration () {
         if (characterLive < characterMaxLive && characterDie == false) {
             characterLive = characterLive + liveRegeneratePoints;
+            HeartAnim.Play ("Base Layer.HeartImage", 0, 0.25f);
+            HeartText.text = character.stats.characterLive.ToString ();
         }
         Invoke ("liveDieRegeneration", liveRegenerateVelocity);
     }
