@@ -15,6 +15,7 @@ public class CharacterAnimations : MonoBehaviour {
         anim.SetBool ("isDying", false);
         anim.SetBool ("isAttacking", false);
         anim.SetBool ("isHurt", false);
+        anim.SetBool ("isRecover", false);
         anim.SetBool ("isWalking", true);
     }
 
@@ -24,6 +25,7 @@ public class CharacterAnimations : MonoBehaviour {
         anim.SetBool ("isDying", false);
         anim.SetBool ("isHurt", false);
         anim.SetBool ("isAttacking", false);
+        anim.SetBool ("isRecover", false);
         anim.SetBool ("isJumping", true);
     }
 
@@ -34,6 +36,7 @@ public class CharacterAnimations : MonoBehaviour {
         anim.SetBool ("isDying", false);
         anim.SetBool ("isHurt", false);
         anim.SetBool ("isAttacking", false);
+        anim.SetBool ("isRecover", false);
     }
 
     // Attack animation
@@ -43,6 +46,7 @@ public class CharacterAnimations : MonoBehaviour {
         anim.SetBool ("isDying", false);
         anim.SetBool ("isHurt", false);
         anim.SetBool ("isAttacking", false);
+        anim.SetBool ("isRecover", false);
         anim.SetBool ("isAttacking", true);
     }
 
@@ -52,7 +56,18 @@ public class CharacterAnimations : MonoBehaviour {
         anim.SetBool ("isWalking", false);
         anim.SetBool ("isDying", false);
         anim.SetBool ("isAttacking", false);
+        anim.SetBool ("isRecover", false);
         anim.SetBool ("isHurt", true);
+    }
+
+    // SuperPower animation
+    public void superPowerAnimation () {
+        anim.SetBool ("isJumping", false);
+        anim.SetBool ("isWalking", false);
+        anim.SetBool ("isAttacking", false);
+        anim.SetBool ("isHurt", false);
+        anim.SetBool ("isDying", false);
+        anim.SetBool ("isRecover", true);
     }
 
     // Die animation
@@ -61,6 +76,7 @@ public class CharacterAnimations : MonoBehaviour {
         anim.SetBool ("isWalking", false);
         anim.SetBool ("isAttacking", false);
         anim.SetBool ("isHurt", false);
+        anim.SetBool ("isRecover", false);
         anim.SetBool ("isDying", true);
     }
 }

@@ -16,16 +16,23 @@ public class CharacterStats : MonoBehaviour {
     public float liveRegenerateVelocity = 1f;
     public float liveRegeneratePoints = 1;
     public bool characterDie = false;
+    // Mana
+    public float characterMana = 100;
+    public float characterMaxMana = 100;
+    public bool characterMeditar = false;
     // Attack
     public bool characterAttack = false;
     public int characterMinForce = 2;
     public int characterMaxForce = 8;
     public int characterForce = 7;
+    public bool superPowerActive = false;
     // Defense
     public float characterResistence = 5;
     // Coins
     public float coins = 0;
     public bool takeCoin = false;
+    // Fire
+    public bool characterOnFire = false;
 
     void Start () {
         // Character live function

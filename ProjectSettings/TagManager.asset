@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - Enemy
   - Coin
+  - SuperPower
   layers:
   - Default
   - TransparentFX

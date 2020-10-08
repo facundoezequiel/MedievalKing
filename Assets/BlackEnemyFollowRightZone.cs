@@ -9,6 +9,7 @@ public class BlackEnemyFollowRightZone : MonoBehaviour {
     void Awake () {
         rotation = transform.rotation;
     }
+    
     void LateUpdate () {
         transform.rotation = rotation;
     }

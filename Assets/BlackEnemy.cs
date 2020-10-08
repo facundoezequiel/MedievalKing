@@ -13,6 +13,7 @@ public class BlackEnemy : MonoBehaviour {
     public int blackEnemyMinForce = 2;
     public int blackEnemyMaxForce = 7;
     public int blackEnemyForce = 5;
+    public bool floatingTextActive = false;
     public bool enemyRecover = false;
     public bool characterAttackingZone = false;
     public bool characterEnterInRightZone = false;
@@ -44,14 +45,19 @@ public class BlackEnemy : MonoBehaviour {
         } else {
             anim.SetBool ("isWalking", false);
             anim.SetBool ("isHurt", false);
+            anim.SetBool ("isAttacking", false);
+            anim.SetBool ("isRecover", false);
             anim.SetBool ("isDying", true);
-            Destroy (GetComponent<BoxCollider2D> ());
-            Invoke ("BlackEnemyDie", 1f);
+            if (floatingTextActive == false) {
+                ShowFloatingText ();
+            }
+            Invoke ("BlackEnemyBeforeDie", 1f);
         }
     }
 
     public void ShowFloatingText () {
         var FloatingText = Instantiate (FloatingTextPrefab, transform.position, Quaternion.identity, transform);
+        floatingTextActive = true;
         if (blackEnemyLive > 0) {
             if (character.stats.characterForce == character.stats.characterMaxForce - 1) {
                 FloatingText.GetComponent<TextMesh> ().color = Color.red;
@@ -72,6 +78,7 @@ public class BlackEnemy : MonoBehaviour {
         anim.SetBool ("isHurt", false);
         anim.SetBool ("isAttacking", false);
         anim.SetBool ("isRecover", false);
+        floatingTextActive = false;
     }
 
     public void BlackEnemyWalk () {
@@ -82,6 +89,7 @@ public class BlackEnemy : MonoBehaviour {
             anim.SetBool ("isRecover", false);
             anim.SetBool ("isWalking", true);
             transform.position = Vector2.MoveTowards (transform.position, target.position, blackEnemyMoveSpeed * Time.deltaTime);
+            floatingTextActive = false;
         }
     }
 
@@ -108,6 +116,7 @@ public class BlackEnemy : MonoBehaviour {
             anim.SetBool ("isAttacking", true);
             character.actions.showLiveInText = 0;
         }
+        floatingTextActive = false;
     }
 
     public void BlackEnemyHurt () {
@@ -141,6 +150,11 @@ public class BlackEnemy : MonoBehaviour {
         } else if (characterEnterInRightZone == true) {
             transform.localRotation = Quaternion.Euler (0, 180, 0);
         }
+    }
+
+    public void BlackEnemyBeforeDie () {
+        Destroy (GetComponent<BoxCollider2D> ());
+        Invoke ("BlackEnemyDie", 1f);
     }
 
     public void BlackEnemyDie () {
