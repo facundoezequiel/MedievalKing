@@ -53,7 +53,8 @@ public class CharacterActions : MonoBehaviour {
                 FloatingText.GetComponent<TextMesh> ().color = Color.green;
                 FloatingText.GetComponent<TextMesh> ().text = "Esquivo";
             }
-        } else if (character.stats.takeCoin == false) {
+        }
+        if (state == states.DEATH) {
             FloatingText.GetComponent<TextMesh> ().color = Color.red;
             FloatingText.GetComponent<TextMesh> ().text = "Dead!";
         }
@@ -65,7 +66,7 @@ public class CharacterActions : MonoBehaviour {
             FloatingText.GetComponent<TextMesh> ().color = Color.cyan;
             FloatingText.GetComponent<TextMesh> ().text = "-80";
         }
-        if (character.stats.characterOnFire == true) {
+        if (character.stats.characterOnFire == true && character.stats.characterDie == false) {
             FloatingText.GetComponent<TextMesh> ().color = Color.red;
             FloatingText.GetComponent<TextMesh> ().text = showFireForceInText.ToString ();
         }
@@ -119,7 +120,7 @@ public class CharacterActions : MonoBehaviour {
         }
     }
 
-    public void SuperPower() {
+    public void SuperPower () {
         if (character.stats.characterMana >= 80) {
             state = states.SUPERPOWER;
             character.stats.superPowerActive = true;
@@ -136,7 +137,7 @@ public class CharacterActions : MonoBehaviour {
         }
     }
 
-    public void Meditar() {
+    public void Meditar () {
         if (state == states.IDLE) {
             state = states.MEDITAR;
         }

@@ -8,14 +8,14 @@ public class GroundCheck : MonoBehaviour {
     public bool onGround = false;
 
     private void OnTriggerEnter2D (Collider2D collider) {
-        if (collider.tag == "Ground") {
+        if (collider.tag == "Ground" || collider.tag == "Enemy") {
             onGround = true;
             camerafollow.yBlock = false;
         }
     }
 
     private void OnTriggerExit2D (Collider2D collider) {
-        if (collider.tag == "Ground") {
+        if (collider.tag == "Ground" || collider.tag == "Enemy") {
             onGround = false;
             camerafollow.yBlock = true;
         }
