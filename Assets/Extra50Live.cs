@@ -8,6 +8,7 @@ public class Extra50Live : MonoBehaviour {
     private void OnTriggerEnter2D (Collider2D collider) {
         if (collider.tag == "Character") {
             manager.extra50Live = true;
+            manager.ActivarPowerUps ();
             Destroy (this.gameObject);
         }
     }

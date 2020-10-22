@@ -4,36 +4,50 @@ using UnityEngine;
 
 public class PowerUpsManager : MonoBehaviour {
     public Character character;
+    public Fire fire;
+    public BlackEnemy blackenemy;
     public bool extra50Live = false;
     public bool extra3Force = false;
     public bool extra50Mana = false;
 
-    void Update () {
-        ActivarPowerUps ();
-    }
-
+    // Autonivelacion de dificultad
     public void ActivarPowerUps () {
-        // +50 de vida
+        // +50 de vida a personaje
         if (extra50Live == true) {
             character.stats.characterMaxLive = character.stats.characterMaxLive + 50;
+            fire.FireForceMin = fire.FireForceMin + 15;
+            fire.FireForceMax = fire.FireForceMax + 15;
+            blackenemy.blackEnemyLive = blackenemy.blackEnemyLive + 30;
             if (character.stats.characterLive < character.stats.characterMaxLive) {
                 character.stats.characterLive = character.stats.characterMaxLive;
+                character.stats.HeartAnim.Play ("Base Layer.HeartImage", 0, 0.25f);
+                character.stats.HeartText.text = character.stats.characterLive.ToString ();
             }
+            character.actions.ShowFloatingText ();
             extra50Live = false;
         }
-        // +3 de fuerza
+        // +3 de fuerza a personaje
         if (extra3Force == true) {
             character.stats.characterMinForce = character.stats.characterMinForce + 3;
             character.stats.characterMaxForce = character.stats.characterMaxForce + 3;
             character.stats.characterForce = character.stats.characterForce + 3;
+            blackenemy.blackEnemyMinForce = blackenemy.blackEnemyMinForce + 5;
+            blackenemy.blackEnemyMaxForce = blackenemy.blackEnemyMaxForce + 5;
+            blackenemy.blackEnemyForce = blackenemy.blackEnemyForce + 5;
+            character.actions.ShowFloatingText ();
             extra3Force = false;
         }
-        // +50 de mana 
+        // +50 de mana a personaje
         if (extra50Mana == true) {
             character.stats.characterMaxMana = character.stats.characterMaxMana + 50;
+            character.stats.superPowerManaCost = character.stats.superPowerManaCost + 50;
+            character.stats.characterManaReload = character.stats.characterManaReload + 1;
             if (character.stats.characterMana < character.stats.characterMaxMana) {
                 character.stats.characterMana = character.stats.characterMaxMana;
+                character.actions.ManaText.text = character.stats.characterMana.ToString ();
+                character.actions.ManaAnim.Play ("Base Layer.ManaImage", 0, 0.25f);
             }
+            character.actions.ShowFloatingText ();
             extra50Mana = false;
         }
     }

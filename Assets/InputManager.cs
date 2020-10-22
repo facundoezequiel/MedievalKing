@@ -7,6 +7,8 @@ public class InputManager : MonoBehaviour {
     public CharacterActions actions;
     public GroundCheck groundcheck;
     public BlackEnemy blackEnemy;
+    public bool attackCounter = true;
+    public bool pressP;
 
     void Update () {
         if (character.stats.characterDie == false) {
@@ -27,7 +29,14 @@ public class InputManager : MonoBehaviour {
                 }
                 // Character Attack
                 if (Input.GetKeyDown (KeyCode.P)) {
-                    actions.Attack ();
+                    if (attackCounter == true) {
+                        actions.Attack ();
+                        attackCounter = false;
+                        pressP = true;
+                        Invoke ("attackCounterReset", 0.7f);
+                    } else {
+                        pressP = false;
+                    }
                 }
                 // Character Super Power
                 if (Input.GetKeyDown (KeyCode.O)) {
@@ -49,4 +58,9 @@ public class InputManager : MonoBehaviour {
             actions.Die ();
         }
     }
+
+    private void attackCounterReset () {
+        attackCounter = true;
+    }
+
 }

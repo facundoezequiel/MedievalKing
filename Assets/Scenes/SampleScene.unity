@@ -639,6 +639,7 @@ MonoBehaviour:
   blackEnemyForce: 5
   floatingTextActive: 0
   enemyRecover: 0
+  enemyAttackingZone: 0
   characterAttackingZone: 0
   characterEnterInRightZone: 0
   characterEnterInLeftZone: 0
@@ -3018,7 +3019,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59031eb0e9497194589f2c63f8ce913e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 0}
+  character: {fileID: 908993987210472821}
+  fire: {fileID: 1400516172430083}
+  blackenemy: {fileID: 5087687141019520403}
   extra50Live: 0
   extra3Force: 0
   extra50Mana: 0
@@ -11602,6 +11605,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 908993987210472821}
   FireForce: 30
+  FireForceMin: 20
+  FireForceMax: 40
 --- !u!61 &808544955
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -15071,6 +15076,7 @@ MonoBehaviour:
   blackEnemyForce: 5
   floatingTextActive: 0
   enemyRecover: 0
+  enemyAttackingZone: 0
   characterAttackingZone: 0
   characterEnterInRightZone: 0
   characterEnterInLeftZone: 0
@@ -33165,7 +33171,7 @@ GameObject:
   - component: {fileID: 2122223296}
   - component: {fileID: 2122223297}
   m_Layer: 0
-  m_Name: Heart
+  m_Name: Posion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33225,7 +33231,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 32b264cf55ad7444696b291a8a1b4886, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 384681ec1344ebe478ee0adbf07f605a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -33391,6 +33397,63 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2137344442
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2137344443}
+  - component: {fileID: 2137344444}
+  m_Layer: 0
+  m_Name: AttackArea
+  m_TagString: CharacterAttackZone
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2137344443
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2137344442}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.34, y: 0.69, z: -5.0239944}
+  m_LocalScale: {x: 0.40832373, y: 1.243963, z: 0.75967205}
+  m_Children: []
+  m_Father: {fileID: 903666145293857261}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &2137344444
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2137344442}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.89, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &2144192012
 GameObject:
   m_ObjectHideFlags: 0
@@ -33567,6 +33630,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 908993987210472821}
   FireForce: 30
+  FireForceMin: 20
+  FireForceMax: 40
 --- !u!1 &1901388719192691
 GameObject:
   m_ObjectHideFlags: 0
@@ -48085,6 +48150,7 @@ Transform:
   m_Children:
   - {fileID: 2124862166}
   - {fileID: 874211398}
+  - {fileID: 2137344443}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -48177,6 +48243,8 @@ MonoBehaviour:
   actions: {fileID: 908993987210472819}
   groundcheck: {fileID: 2124862167}
   blackEnemy: {fileID: 5087687141019520403}
+  attackCounter: 1
+  pressP: 0
 --- !u!114 &908993987210472819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48193,6 +48261,7 @@ MonoBehaviour:
   ManaAnim: {fileID: 71924410}
   coinSound: {fileID: 908993987210472824}
   character: {fileID: 908993987210472821}
+  powerups: {fileID: 335792671}
   SuperPowerArea: {fileID: 874211400}
   FloatingTextPrefab: {fileID: 1293603593108180, guid: 92d60a2e17d9a4bb8bd3801b14fc2926, type: 3}
   ElectricSuperPowerPrefab: {fileID: 100008, guid: 1ca16f2a31fb6a548ad8954bed1d321f, type: 3}
@@ -48231,11 +48300,13 @@ MonoBehaviour:
   characterMana: 100
   characterMaxMana: 100
   characterMeditar: 0
+  characterManaReload: 1
   characterAttack: 0
   characterMinForce: 2
   characterMaxForce: 8
   characterForce: 8
   superPowerActive: 0
+  superPowerManaCost: 80
   characterResistence: 5
   coins: 0
   takeCoin: 0
@@ -48592,6 +48663,7 @@ MonoBehaviour:
   blackEnemyForce: 5
   floatingTextActive: 0
   enemyRecover: 0
+  enemyAttackingZone: 0
   characterAttackingZone: 0
   characterEnterInRightZone: 0
   characterEnterInLeftZone: 0

@@ -8,13 +8,14 @@ public class BlackEnemy : MonoBehaviour {
     public Animator anim;
     private Transform target;
     public GameObject FloatingTextPrefab;
-    public float blackEnemyLive = 40;
+    public float blackEnemyLive = 60;
     public float blackEnemyMoveSpeed = 7;
     public int blackEnemyMinForce = 2;
     public int blackEnemyMaxForce = 7;
-    public int blackEnemyForce = 5;
+    public int blackEnemyForce = 6;
     public bool floatingTextActive = false;
     public bool enemyRecover = false;
+    public bool enemyAttackingZone = false;
     public bool characterAttackingZone = false;
     public bool characterEnterInRightZone = false;
     public bool characterEnterInLeftZone = false;
@@ -30,10 +31,10 @@ public class BlackEnemy : MonoBehaviour {
         if (blackEnemyLive > 0) {
             if (characterEnterInLeftZone == true || characterEnterInRightZone == true) {
                 BlackEnemyRotation ();
-                if (characterAttackingZone == false) {
+                if (enemyAttackingZone == false) {
                     BlackEnemyWalk ();
                 } else {
-                    if (Input.GetKeyDown (KeyCode.P)) {
+                    if (Input.GetKeyDown (KeyCode.P) && character.input.pressP == true && characterAttackingZone == true) {
                         BlackEnemyHurt ();
                     } else if (enemyRecover == false) {
                         BlackEnemyAttack ();
@@ -63,8 +64,8 @@ public class BlackEnemy : MonoBehaviour {
                 FloatingText.GetComponent<TextMesh> ().color = Color.red;
                 FloatingText.GetComponent<TextMesh> ().text = "Stuned! " + character.stats.characterForce.ToString ();;
             } else {
-                FloatingText.GetComponent<TextMesh> ().color = Color.white;
-                FloatingText.GetComponent<TextMesh> ().text = character.stats.characterForce.ToString ();
+                FloatingText.GetComponent<TextMesh> ().color = Color.blue;
+                FloatingText.GetComponent<TextMesh> ().text = "-" + character.stats.characterForce.ToString ();
             }
         } else {
             FloatingText.GetComponent<TextMesh> ().color = Color.red;
@@ -158,6 +159,7 @@ public class BlackEnemy : MonoBehaviour {
     }
 
     public void BlackEnemyDie () {
+        enemyAttackingZone = false;
         characterAttackingZone = false;
         Destroy (this.gameObject);
     }

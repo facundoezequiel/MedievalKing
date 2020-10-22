@@ -20,12 +20,14 @@ public class CharacterStats : MonoBehaviour {
     public float characterMana = 100;
     public float characterMaxMana = 100;
     public bool characterMeditar = false;
+    public int characterManaReload = 1;
     // Attack
     public bool characterAttack = false;
     public int characterMinForce = 2;
     public int characterMaxForce = 8;
     public int characterForce = 7;
     public bool superPowerActive = false;
+    public int superPowerManaCost = 80;
     // Defense
     public float characterResistence = 5;
     // Coins
@@ -42,7 +44,7 @@ public class CharacterStats : MonoBehaviour {
     }
 
     void Update () {
-        if (characterLive < 0) {
+        if (characterLive <= 0) {
             characterDie = true;
         }
     }

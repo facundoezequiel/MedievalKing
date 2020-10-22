@@ -7,15 +7,21 @@ public class BlackEnemyCharacterAttackCheck : MonoBehaviour {
 
     private void OnTriggerEnter2D (Collider2D collider) {
         if (collider.tag == "Character" || collider.tag == "SuperPower") {
-            blackEnemy.characterAttackingZone = true;
+            blackEnemy.enemyAttackingZone = true;
             if (collider.tag == "SuperPower") {
                 blackEnemy.blackEnemyLive = 0;
             }
+        }
+        if (collider.tag == "CharacterAttackZone") {
+            blackEnemy.characterAttackingZone = true;
         }
     }
 
     private void OnTriggerExit2D (Collider2D collider) {
         if (collider.tag == "Character" || collider.tag == "SuperPower") {
+            blackEnemy.enemyAttackingZone = false;
+        }
+        if (collider.tag == "CharacterAttackZone") {
             blackEnemy.characterAttackingZone = false;
         }
     }
