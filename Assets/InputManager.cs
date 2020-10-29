@@ -13,16 +13,18 @@ public class InputManager : MonoBehaviour {
     void Update () {
         if (character.stats.characterDie == false) {
             if (character.stats.superPowerActive == false) {
+                float horizontal = (Input.GetAxis ("Horizontal"));
+                bool jumpButton = (Input.GetButtonDown ("Jump"));
                 // Character Walk to left
-                if (Input.GetKey (KeyCode.A)) {
+                if (Input.GetKey (KeyCode.A) || horizontal < 0) {
                     actions.Walk (-1);
                 }
                 // Character Walk to right
-                if (Input.GetKey (KeyCode.D)) {
+                if (Input.GetKey (KeyCode.D) || horizontal > 0) {
                     actions.Walk (1);
                 }
                 // Character Jump
-                if (Input.GetKeyDown (KeyCode.W)) {
+                if (Input.GetKeyDown (KeyCode.W) || jumpButton == true) {
                     if (groundcheck.onGround == true) {
                         actions.Jump ();
                     }
@@ -33,7 +35,7 @@ public class InputManager : MonoBehaviour {
                         actions.Attack ();
                         attackCounter = false;
                         pressP = true;
-                        Invoke ("attackCounterReset", 0.7f);
+                        Invoke ("attackCounterReset", character.stats.characterAttackSpeed);
                     } else {
                         pressP = false;
                     }
