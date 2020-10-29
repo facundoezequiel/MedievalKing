@@ -26,6 +26,7 @@ public class CharacterStats : MonoBehaviour {
     public int characterMinForce = 2;
     public int characterMaxForce = 8;
     public int characterForce = 7;
+    public float characterAttackSpeed = 0.7f;
     public bool superPowerActive = false;
     public int superPowerManaCost = 80;
     // Defense

@@ -545,7 +545,7 @@ GameObject:
   - component: {fileID: 64689756}
   - component: {fileID: 64689755}
   m_Layer: 0
-  m_Name: BlackEnemy (2)
+  m_Name: BlackEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -711,7 +711,7 @@ Transform:
   - {fileID: 1353910824}
   - {fileID: 1111012106}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &71924408
 GameObject:
@@ -1902,7 +1902,7 @@ Transform:
   - {fileID: 1769270706}
   - {fileID: 1989107025}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &202881522
 MonoBehaviour:
@@ -2143,13 +2143,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 229316918}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.98, y: -1.83, z: 11.08}
+  m_LocalPosition: {x: 16.09, y: 1.8268751, z: 7.1655736}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1420647787}
   - {fileID: 1320336958}
-  m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_Father: {fileID: 562331875}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &238419472
 GameObject:
@@ -2591,7 +2591,7 @@ GameObject:
   - component: {fileID: 277323924}
   - component: {fileID: 277323923}
   m_Layer: 0
-  m_Name: TX Village Props Gravestone B
+  m_Name: Cruz
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2656,11 +2656,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 277323922}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.61101, y: -4.098, z: 3.96}
+  m_LocalPosition: {x: 3.49899, y: -0.44112492, z: 0.04557371}
   m_LocalScale: {x: 0.62764, y: 0.62764, z: 0.62764}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_Father: {fileID: 562331875}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &286216507
 GameObject:
@@ -4922,6 +4922,45 @@ Transform:
   m_Children: []
   m_Father: {fileID: 977500959}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &562331874
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 562331875}
+  m_Layer: 0
+  m_Name: Decoration
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &562331875
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562331874}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.11, y: -3.6568751, z: 3.9144263}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 840529708}
+  - {fileID: 229316919}
+  - {fileID: 1532687750}
+  - {fileID: 2109566334}
+  - {fileID: 277323924}
+  - {fileID: 937598696}
+  - {fileID: 1280925056}
+  - {fileID: 1358172225}
+  - {fileID: 1491124377}
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &570338085
 GameObject:
@@ -11909,13 +11948,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 840529707}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.96, y: -1.83, z: 11.08}
+  m_LocalPosition: {x: -0.8499999, y: 1.8268751, z: 7.1655736}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 478665270}
   - {fileID: 645128356}
-  m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_Father: {fileID: 562331875}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &866525015
 GameObject:
@@ -12311,7 +12350,7 @@ GameObject:
   - component: {fileID: 937598696}
   - component: {fileID: 937598695}
   m_Layer: 0
-  m_Name: TX Village Props Gravestone C
+  m_Name: Cruz
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12376,11 +12415,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 937598694}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.30409, y: -4.0943003, z: 3.96}
+  m_LocalPosition: {x: 4.41409, y: -0.43742514, z: 0.04557371}
   m_LocalScale: {x: 0.62764, y: 0.62764, z: 0.62764}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_Father: {fileID: 562331875}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &938801388
 GameObject:
@@ -14982,7 +15021,7 @@ GameObject:
   - component: {fileID: 1190024406}
   - component: {fileID: 1190024405}
   m_Layer: 0
-  m_Name: BlackEnemy (1)
+  m_Name: BlackEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16073,7 +16112,7 @@ GameObject:
   - component: {fileID: 1280925056}
   - component: {fileID: 1280925055}
   m_Layer: 0
-  m_Name: TX Village Props Gravestone A
+  m_Name: Cruz
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16138,11 +16177,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1280925054}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.5881, y: -4.0911, z: 3.9248521}
+  m_LocalPosition: {x: 2.5219002, y: -0.43422508, z: 0.010425806}
   m_LocalScale: {x: 0.62764, y: 0.62764, z: 0.62764}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_Father: {fileID: 562331875}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1283731942
 GameObject:
@@ -17303,7 +17342,7 @@ GameObject:
   - component: {fileID: 1358172225}
   - component: {fileID: 1358172224}
   m_Layer: 0
-  m_Name: TX Village Props Road Sign B
+  m_Name: Cartel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17368,13 +17407,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1358172223}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.287, y: -4.106, z: 10.27}
+  m_LocalPosition: {x: 0.8230002, y: -0.4491248, z: 6.355574}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2005544702}
   - {fileID: 430359863}
-  m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_Father: {fileID: 562331875}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1367601834
 GameObject:
@@ -18289,7 +18328,7 @@ GameObject:
   - component: {fileID: 1491124377}
   - component: {fileID: 1491124376}
   m_Layer: 0
-  m_Name: TX Village Props Pot C
+  m_Name: Jarron
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18354,11 +18393,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1491124375}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.11, y: -4.11, z: 3.914426}
+  m_LocalPosition: {x: 0, y: -0.453125, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_Father: {fileID: 562331875}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1494502620
 GameObject:
@@ -18621,7 +18660,7 @@ RectTransform:
   - {fileID: 1126545482}
   - {fileID: 71924409}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -23474,13 +23513,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1532687749}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 20.02, y: -1.83, z: 11.08}
+  m_LocalPosition: {x: 24.130001, y: 1.8268751, z: 7.1655736}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1348486499}
   - {fileID: 977500959}
-  m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_Father: {fileID: 562331875}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1533559587
 GameObject:
@@ -32761,7 +32800,7 @@ GameObject:
   - component: {fileID: 2109566334}
   - component: {fileID: 2109566333}
   m_Layer: 0
-  m_Name: TX Village Props Gravestone D
+  m_Name: Cruz
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32826,11 +32865,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2109566332}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.2067, y: -4.0964003, z: 3.96}
+  m_LocalPosition: {x: 5.3167, y: -0.43952513, z: 0.04557371}
   m_LocalScale: {x: 0.62764, y: 0.62764, z: 0.62764}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_Father: {fileID: 562331875}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2110385405
 GameObject:
@@ -48271,6 +48310,7 @@ MonoBehaviour:
   CoinsText: {fileID: 394015938}
   HeartText: {fileID: 1085030272}
   ManaText: {fileID: 1126545483}
+  deadText: 1
   showLiveInText: 0
   showFireForceInText: 0
   groundcheck: {fileID: 2124862167}
@@ -48305,6 +48345,7 @@ MonoBehaviour:
   characterMinForce: 2
   characterMaxForce: 8
   characterForce: 8
+  characterAttackSpeed: 0.7
   superPowerActive: 0
   superPowerManaCost: 80
   characterResistence: 5

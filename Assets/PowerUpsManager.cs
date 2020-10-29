@@ -14,10 +14,13 @@ public class PowerUpsManager : MonoBehaviour {
     public void ActivarPowerUps () {
         // +50 de vida a personaje
         if (extra50Live == true) {
-            character.stats.characterMaxLive = character.stats.characterMaxLive + 50;
-            fire.FireForceMin = fire.FireForceMin + 15;
-            fire.FireForceMax = fire.FireForceMax + 15;
-            blackenemy.blackEnemyLive = blackenemy.blackEnemyLive + 30;
+            character.stats.characterMaxLive += 50;
+            fire.FireForceMin += 15;
+            fire.FireForceMax += 15;
+            blackenemy.blackEnemyLive += 30;
+            if (character.stats.characterAttackSpeed >= 0.1f) {
+                character.stats.characterAttackSpeed -= 0.05f;
+            }
             if (character.stats.characterLive < character.stats.characterMaxLive) {
                 character.stats.characterLive = character.stats.characterMaxLive;
                 character.stats.HeartAnim.Play ("Base Layer.HeartImage", 0, 0.25f);
@@ -28,12 +31,12 @@ public class PowerUpsManager : MonoBehaviour {
         }
         // +3 de fuerza a personaje
         if (extra3Force == true) {
-            character.stats.characterMinForce = character.stats.characterMinForce + 3;
-            character.stats.characterMaxForce = character.stats.characterMaxForce + 3;
-            character.stats.characterForce = character.stats.characterForce + 3;
-            blackenemy.blackEnemyMinForce = blackenemy.blackEnemyMinForce + 5;
-            blackenemy.blackEnemyMaxForce = blackenemy.blackEnemyMaxForce + 5;
-            blackenemy.blackEnemyForce = blackenemy.blackEnemyForce + 5;
+            character.stats.characterMinForce += 3;
+            character.stats.characterMaxForce += 3;
+            character.stats.characterForce += 3;
+            blackenemy.blackEnemyMinForce += 5;
+            blackenemy.blackEnemyMaxForce += 5;
+            blackenemy.blackEnemyForce += 5;
             character.actions.ShowFloatingText ();
             extra3Force = false;
         }

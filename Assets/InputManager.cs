@@ -33,7 +33,7 @@ public class InputManager : MonoBehaviour {
                         actions.Attack ();
                         attackCounter = false;
                         pressP = true;
-                        Invoke ("attackCounterReset", 0.7f);
+                        Invoke ("attackCounterReset", character.stats.characterAttackSpeed);
                     } else {
                         pressP = false;
                     }
