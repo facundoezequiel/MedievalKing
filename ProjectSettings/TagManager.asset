@@ -10,6 +10,7 @@ TagManager:
   - Coin
   - SuperPower
   - CharacterAttackZone
+  - FinalBoss
   layers:
   - Default
   - TransparentFX

@@ -8,13 +8,15 @@ public class FinalBoss : MonoBehaviour {
     public Animator anim;
     private Transform target;
     public GameObject FloatingTextPrefab;
+    public float positionY;
     public float finalBossLive = 500;
     public float finalBossChestLive = 50;
-    public float finalBossMoveSpeed = 7;
+    public float finalBossMoveSpeed = 5;
     public int finalBossMinForce = 20;
     public int finalBossMaxForce = 30;
     public int finalBossForce = 29;
     public int randomAttack;
+    public int randomHurt;
     public bool floatingTextActive = false;
     public bool finalBossRecover = false;
     public bool finalBossAttackingZone = false;
@@ -28,6 +30,8 @@ public class FinalBoss : MonoBehaviour {
         anim = GetComponent<Animator> ();
         target = GameObject.FindGameObjectWithTag ("Character").GetComponent<Transform> ();
         randomAttack = Random.Range (1, 4);
+        randomHurt = Random.Range (0, 5);
+        positionY = transform.position.y;
     }
 
     void Update () {
@@ -40,7 +44,12 @@ public class FinalBoss : MonoBehaviour {
                         FinalBossWalk ();
                     } else {
                         if (Input.GetKeyDown (KeyCode.P) && character.input.pressP == true && characterAttackingZone == true) {
-                            FinalBossHurt ();
+                            randomHurt = Random.Range (0, 5);
+                            if (randomHurt != 4) {
+                                FinalBossHurt ();
+                            } else {
+                                FinalBossBlock ();
+                            }
                         } else if (finalBossRecover == false) {
                             FinalBossAttack ();
                         }
@@ -61,7 +70,7 @@ public class FinalBoss : MonoBehaviour {
             if (floatingTextActive == false) {
                 ShowFloatingText ();
             }
-            Invoke ("FinalBossBeforeDie", 1f);
+            Invoke ("FinalBossBeforeDie", 2f);
         }
     }
 
@@ -75,6 +84,10 @@ public class FinalBoss : MonoBehaviour {
             } else {
                 FloatingText.GetComponent<TextMesh> ().color = Color.blue;
                 FloatingText.GetComponent<TextMesh> ().text = "-" + character.stats.characterForce.ToString ();
+            }
+            if (randomHurt == 4) {
+                FloatingText.GetComponent<TextMesh> ().color = Color.cyan;
+                FloatingText.GetComponent<TextMesh> ().text = "Block!";
             }
         } else {
             FloatingText.GetComponent<TextMesh> ().color = Color.red;
@@ -94,6 +107,7 @@ public class FinalBoss : MonoBehaviour {
     }
 
     public void FinalBossWalk () {
+        transform.position = new Vector3 (transform.position.x, positionY, transform.position.z);
         if (finalBossRecover == false) {
             anim.SetBool ("isWalking", true);
             anim.SetBool ("isHurt", false);
@@ -150,6 +164,19 @@ public class FinalBoss : MonoBehaviour {
         floatingTextActive = false;
     }
 
+    // Function Block - Cuando bloquea un ataque
+    public void FinalBossBlock () {
+        anim.SetBool ("isWalking", false);
+        anim.SetBool ("isHurt", true);
+        anim.SetBool ("isAttacking1", false);
+        anim.SetBool ("isAttacking2", false);
+        anim.SetBool ("isAttacking3", false);
+        anim.SetBool ("isBlock", true);
+        anim.SetBool ("isDying", false);
+        ShowFloatingText ();
+    }
+
+    // Function Hurt - Cuando recibe un ataque
     public void FinalBossHurt () {
         finalBossLive = finalBossLive - character.stats.characterForce;
         if (character.stats.characterForce < character.stats.characterMaxForce - 1) {
