@@ -174,7 +174,7 @@ public class FinalBoss : MonoBehaviour {
             }
             if (randomAttack == 3) {
                 superAttackRandom = Random.Range (0, 80);
-                if (superAttackRandom > 70) {
+                if (superAttackRandom > 50) {
                     finalBossSuperAttack = true;
                     var FinalBossParticlesRealodSuperPower = Instantiate (FinalBossParticlesRealodSuperPowerPrefab, transform.position, Quaternion.identity, transform);
                     anim.SetBool ("isWalking", false);
