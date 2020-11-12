@@ -11,6 +11,8 @@ TagManager:
   - SuperPower
   - CharacterAttackZone
   - FinalBoss
+  - FxTemporaire
+  - EscapePoint
   layers:
   - Default
   - TransparentFX
