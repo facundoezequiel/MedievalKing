@@ -14,6 +14,7 @@ TagManager:
   - FxTemporaire
   - EscapePoint
   - ChestPoint
+  - CharacterAttackCheck
   layers:
   - Default
   - TransparentFX
