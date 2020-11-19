@@ -12,15 +12,20 @@ public class GameManager : MonoBehaviour {
     public bool gameOver = false;
     public states state;
     // Canvas
-    public Text TitleMuerto;
-    public Text TitleTerminado;
-    public Text TextoMuerto;
-    public Text TextoTerminado;
-    public Button Replay;
+    public GameObject gameOverUI;
+    public GameObject gameTerminadoUI;
     public enum states {
         PLAYING,
         GAMEOVER,
         LEVELCOMPLETE
+    }
+
+    void Start () {
+        state = states.PLAYING;
+        levelComplete = false;
+        gameOver = false;
+        gameOverUI.gameObject.SetActive (false);
+        gameTerminadoUI.gameObject.SetActive (false);
     }
 
     void Update () {
@@ -31,24 +36,13 @@ public class GameManager : MonoBehaviour {
         if (character.stats.characterLive < 1) {
             state = states.GAMEOVER;
             gameOver = true;
-            TitleMuerto.gameObject.SetActive (true);
-            TextoMuerto.gameObject.SetActive (true);
-            Replay.gameObject.SetActive (true);
+            gameOverUI.gameObject.SetActive (true);
+            gameTerminadoUI.gameObject.SetActive (false);
         } else if (bossEnterEscapePoint == true) {
             state = states.LEVELCOMPLETE;
             levelComplete = true;
-            TitleTerminado.gameObject.SetActive (true);
-            TextoTerminado.gameObject.SetActive (true);
-            Replay.gameObject.SetActive (true);
-        } else {
-            state = states.PLAYING;
-            levelComplete = false;
-            gameOver = false;
-            TitleMuerto.gameObject.SetActive (false);
-            TextoMuerto.gameObject.SetActive (false);
-            TitleTerminado.gameObject.SetActive (false);
-            TextoTerminado.gameObject.SetActive (false);
-            Replay.gameObject.SetActive (false);
+            gameOverUI.gameObject.SetActive (false);
+            gameTerminadoUI.gameObject.SetActive (true);
         }
     }
 }
