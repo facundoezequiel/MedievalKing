@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
     public Character character;
     public FinalBoss finalBoss;
+    public bool bossEnterEscapePoint = false;
     public bool levelComplete = false;
     public bool gameOver = false;
     public states state;
@@ -23,7 +24,7 @@ public class GameManager : MonoBehaviour {
             if (character.stats.characterLive <= 0) {
                 state = states.GAMEOVER;
                 gameOver = true;
-            } else if (finalBoss.finalBossLive <= 50) {
+            } else if (bossEnterEscapePoint == true) {
                 state = states.LEVELCOMPLETE;
                 levelComplete = true;
             } else {

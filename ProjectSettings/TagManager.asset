@@ -13,6 +13,7 @@ TagManager:
   - FinalBoss
   - FxTemporaire
   - EscapePoint
+  - ChestPoint
   layers:
   - Default
   - TransparentFX

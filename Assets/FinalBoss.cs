@@ -11,18 +11,17 @@ public class FinalBoss : MonoBehaviour {
     public GameObject FloatingTextPrefab;
     public GameManager gameManager;
     public float positionY;
-    public float finalBossLive = 500;
-    public float finalBossChestLive = 50;
+    public float finalBossLive = 300;
+    public float finalBossEscapeLive = 50;
     public float finalBossMoveSpeed = 5;
-    public int finalBossMinForce = 20;
-    public int finalBossMaxForce = 30;
-    public int finalBossForce = 29;
+    public int finalBossMinForce = 10;
+    public int finalBossMaxForce = 17;
+    public int finalBossForce = 16;
     public int randomAttack;
     public int superAttackRandom;
     public int randomHurt;
     public bool finalBossSuperAttack = false;
     public bool floatingTextActive = false;
-    public bool finalBossRecover = false;
     public bool finalBossAttackingZone = false;
     public bool characterAttackingZone = false;
     public bool characterEnterInRightZone = false;
@@ -43,48 +42,61 @@ public class FinalBoss : MonoBehaviour {
     }
 
     void Update () {
-        if (gameManager.levelComplete == false) {
-            if (finalBossLive > 0) {
-                if (finalBossChestLive == 50) {
-                    print ("Boss final activo");
-                    if (characterEnterInLeftZone == true || characterEnterInRightZone == true) {
+        // Si el juego no esta terminado y si la vida del boss no es cero
+        if (gameManager.levelComplete == false && finalBossLive > 0) {
+            // Si la vida del boss es mayor a la vida de escape
+            if (finalBossLive > finalBossEscapeLive) {
+                // Si el jugador entra por alguno de los dos lados
+                if (characterEnterInLeftZone == true || characterEnterInRightZone == true) {
+                    // Si el boss no esta por hacer el super ataque
+                    if (finalBossSuperAttack == false) {
+                        // Rota para verlo de frente
                         FinalBossRotation ();
+                        // Si el jugador no esta en la zona de ataque
                         if (finalBossAttackingZone == false) {
+                            // Camina hacia el jugador
                             FinalBossWalk ();
-                        } else {
+
+                        }
+                        // Si el jugador esta en zona de ataque
+                        else {
+                            // Si aprieta el boton de pegar le pega
                             if (Input.GetKeyDown (KeyCode.P) && character.input.pressP == true && characterAttackingZone == true) {
+                                // Random de ataque del jugador
                                 randomHurt = Random.Range (0, 5);
+                                // Si es distinto a 4
                                 if (randomHurt != 4) {
+                                    // Le hace daño
                                     FinalBossHurt ();
-                                } else {
+                                }
+                                // Si es 4
+                                else {
+                                    // El boss bloquea el ataque
                                     FinalBossBlock ();
                                 }
-                            } else if (finalBossRecover == false) {
+                            }
+                            // Si no lo atacan
+                            else {
+                                // El boss ataca al jugador
                                 FinalBossAttack ();
                             }
                         }
-                    } else {
-                        FinalBossIdle ();
                     }
                 }
-            } else {
-                print ("Boss final muerto");
-                anim.SetBool ("isWalking", false);
-                anim.SetBool ("isHurt", false);
-                anim.SetBool ("isAttacking1", false);
-                anim.SetBool ("isAttacking2", false);
-                anim.SetBool ("isAttacking3", false);
-                anim.SetBool ("isBlock", false);
-                anim.SetBool ("isDying", true);
-                if (floatingTextActive == false) {
-                    ShowFloatingText ();
+                // Si el jugador no entra por ningun lado
+                else {
+                    // Se queda en IDLE
+                    FinalBossIdle ();
                 }
-                Invoke ("FinalBossBeforeDie", 2f);
             }
-        } else if (bossEscape == false) {
-            FinalBossEscape ();
-        } else {
-            FinalBossWalk ();
+            // Si la vida del boss es menor a la vida de escape
+            else if (finalBossLive <= finalBossEscapeLive) {
+                // El boss escapa
+                if (bossEscape == false) {
+                    FinalBossEscape ();
+                }
+                FinalBossWalk ();
+            }
         }
     }
 
@@ -125,17 +137,15 @@ public class FinalBoss : MonoBehaviour {
     public void FinalBossWalk () {
         if (finalBossSuperAttack == false) {
             transform.position = new Vector3 (transform.position.x, positionY, transform.position.z);
-            if (finalBossRecover == false) {
-                anim.SetBool ("isWalking", true);
-                anim.SetBool ("isHurt", false);
-                anim.SetBool ("isAttacking1", false);
-                anim.SetBool ("isAttacking2", false);
-                anim.SetBool ("isAttacking3", false);
-                anim.SetBool ("isBlock", false);
-                anim.SetBool ("isDying", false);
-                transform.position = Vector2.MoveTowards (transform.position, target.position, finalBossMoveSpeed * Time.deltaTime);
-                floatingTextActive = false;
-            }
+            anim.SetBool ("isWalking", true);
+            anim.SetBool ("isHurt", false);
+            anim.SetBool ("isAttacking1", false);
+            anim.SetBool ("isAttacking2", false);
+            anim.SetBool ("isAttacking3", false);
+            anim.SetBool ("isBlock", false);
+            anim.SetBool ("isDying", false);
+            transform.position = Vector2.MoveTowards (transform.position, target.position, finalBossMoveSpeed * Time.deltaTime);
+            floatingTextActive = false;
         }
     }
 
@@ -260,59 +270,24 @@ public class FinalBoss : MonoBehaviour {
         // Si no esta haciendo el super ataque
         if (finalBossSuperAttack == false) {
             finalBossLive = finalBossLive - character.stats.characterForce;
-            // Si el daño es menor al daño maximo posible solo le hace daño
-            if (character.stats.characterForce < character.stats.characterMaxForce - 1) {
-                anim.SetBool ("isWalking", false);
-                anim.SetBool ("isHurt", true);
-                anim.SetBool ("isAttacking1", false);
-                anim.SetBool ("isAttacking2", false);
-                anim.SetBool ("isAttacking3", false);
-                anim.SetBool ("isBlock", false);
-                anim.SetBool ("isDying", false);
-                finalBossRecover = false;
-            }
-            // Si el daño es igual al mayor daño posible lo noquea por un tiempo
-            else if (character.stats.characterForce == character.stats.characterMaxForce - 1) {
-                anim.SetBool ("isWalking", false);
-                anim.SetBool ("isHurt", true);
-                anim.SetBool ("isAttacking1", false);
-                anim.SetBool ("isAttacking2", false);
-                anim.SetBool ("isAttacking3", false);
-                anim.SetBool ("isBlock", false);
-                anim.SetBool ("isDying", false);
-                finalBossRecover = true;
-                Invoke ("FinalBossGettingUp", 0.7f);
-            }
+            anim.SetBool ("isWalking", false);
+            anim.SetBool ("isHurt", true);
+            anim.SetBool ("isAttacking1", false);
+            anim.SetBool ("isAttacking2", false);
+            anim.SetBool ("isAttacking3", false);
+            anim.SetBool ("isBlock", false);
+            anim.SetBool ("isDying", false);
             ShowFloatingText ();
         }
-    }
-
-    // Funcion que resetea el recover
-    public void FinalBossGettingUp () {
-        finalBossRecover = false;
     }
 
     // Control de rotacion dependiendo de donde esta el personje a traves de detecciones
     public void FinalBossRotation () {
         if (characterEnterInLeftZone == true) {
-            transform.localRotation = Quaternion.Euler (0, 0, 0);
-        } else if (characterEnterInRightZone == true) {
             transform.localRotation = Quaternion.Euler (0, 180, 0);
+        } else if (characterEnterInRightZone == true) {
+            transform.localRotation = Quaternion.Euler (0, 0, 0);
         }
-    }
-
-    // Funcion antes de la muerte del boss
-    public void FinalBossBeforeDie () {
-        Destroy (GetComponent<BoxCollider2D> ());
-        // LLamo a la funcion de muerte en un segundo, el sentido es que se caiga del mapa primero y despues se destruya el objeto
-        Invoke ("FinalBossDie", 1f);
-    }
-
-    // Funcion de muerte del boss (No se usa pero en un "nivel final" futuro se podria usar)
-    public void FinalBossDie () {
-        finalBossAttackingZone = false;
-        characterAttackingZone = false;
-        Destroy (this.gameObject);
     }
 
     // Funcion de escape final cuando el jugador completa el nivel
@@ -322,5 +297,12 @@ public class FinalBoss : MonoBehaviour {
         characterAttackingZone = false;
         transform.localRotation = Quaternion.Euler (0, 0, 0);
         target = escapePoint.GetComponent<Transform> ();
+        anim.SetBool ("isWalking", false);
+        anim.SetBool ("isHurt", false);
+        anim.SetBool ("isAttacking1", false);
+        anim.SetBool ("isAttacking2", false);
+        anim.SetBool ("isAttacking3", false);
+        anim.SetBool ("isBlock", false);
+        anim.SetBool ("isDying", false);
     }
 }
