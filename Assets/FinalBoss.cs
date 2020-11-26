@@ -7,6 +7,7 @@ public class FinalBoss : MonoBehaviour {
     public Character character;
     public GameObject escapePoint;
     public Animator anim;
+    public InputManager input;
     private Transform target;
     public GameObject FloatingTextPrefab;
     public GameManager gameManager;
@@ -61,7 +62,7 @@ public class FinalBoss : MonoBehaviour {
                         // Si el jugador esta en zona de ataque
                         else {
                             // Si aprieta el boton de pegar le pega
-                            if (Input.GetKeyDown (KeyCode.P) && character.input.pressP == true && characterAttackingZone == true) {
+                            if (Input.GetKeyDown (KeyCode.P) && character.input.pressP == true && characterAttackingZone == true || input.pegarButton == true && character.input.pressP == true && characterAttackingZone == true) {
                                 // Random de ataque del jugador
                                 randomHurt = Random.Range (0, 5);
                                 // Si es distinto a 4

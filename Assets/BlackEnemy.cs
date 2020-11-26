@@ -8,6 +8,7 @@ public class BlackEnemy : MonoBehaviour {
     public Animator anim;
     private Transform target;
     public GameObject FloatingTextPrefab;
+    public InputManager input;
     public float blackEnemyLive = 60;
     public float blackEnemyMoveSpeed = 7;
     public int blackEnemyMinForce = 2;
@@ -34,7 +35,7 @@ public class BlackEnemy : MonoBehaviour {
                 if (enemyAttackingZone == false) {
                     BlackEnemyWalk ();
                 } else {
-                    if (Input.GetKeyDown (KeyCode.P) && character.input.pressP == true && characterAttackingZone == true) {
+                    if (Input.GetKeyDown (KeyCode.P) && character.input.pressP == true && characterAttackingZone == true || input.pegarButton == true && character.input.pressP == true && characterAttackingZone == true) {
                         BlackEnemyHurt ();
                     } else if (enemyRecover == false) {
                         BlackEnemyAttack ();

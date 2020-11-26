@@ -9,6 +9,7 @@ public class InputManager : MonoBehaviour {
     public BlackEnemy blackEnemy;
     public GameManager gameManager;
     public bool attackCounter = true;
+    public bool pegarButton;
     public bool pressP;
 
     void Update () {
@@ -21,7 +22,7 @@ public class InputManager : MonoBehaviour {
                     float horizontal = (Input.GetAxis ("Horizontal"));
                     bool jumpButton = (Input.GetButtonDown ("Jump"));
                     bool meditarButton = (Input.GetButtonDown ("Meditar"));
-                    bool pegarButton = (Input.GetButtonDown ("Pegar"));
+                    pegarButton = (Input.GetButtonDown ("Pegar"));
                     bool superataqueButton = (Input.GetButtonDown ("Superataque"));
                     // Caminar hacia la izquierda
                     if (Input.GetKey (KeyCode.A) || horizontal < 0) {
