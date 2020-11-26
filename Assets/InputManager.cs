@@ -20,6 +20,9 @@ public class InputManager : MonoBehaviour {
                 if (character.stats.superPowerActive == false) {
                     float horizontal = (Input.GetAxis ("Horizontal"));
                     bool jumpButton = (Input.GetButtonDown ("Jump"));
+                    bool meditarButton = (Input.GetButtonDown ("Meditar"));
+                    bool pegarButton = (Input.GetButtonDown ("Pegar"));
+                    bool superataqueButton = (Input.GetButtonDown ("Superataque"));
                     // Caminar hacia la izquierda
                     if (Input.GetKey (KeyCode.A) || horizontal < 0) {
                         actions.Walk (-1);
@@ -35,7 +38,7 @@ public class InputManager : MonoBehaviour {
                         }
                     }
                     // Ataque
-                    if (Input.GetKeyDown (KeyCode.P)) {
+                    if (Input.GetKeyDown (KeyCode.P) || pegarButton == true) {
                         // Si el contador de ataque es true puede pegar
                         if (attackCounter == true) {
                             actions.Attack ();
@@ -49,11 +52,11 @@ public class InputManager : MonoBehaviour {
                         }
                     }
                     // Super poder
-                    if (Input.GetKeyDown (KeyCode.O)) {
+                    if (Input.GetKeyDown (KeyCode.O) || superataqueButton == true) {
                         actions.SuperPower ();
                     }
                     // Meditar
-                    if (Input.GetKeyDown (KeyCode.M)) {
+                    if (Input.GetKeyDown (KeyCode.M) || meditarButton == true) {
                         if (character.stats.characterMeditar == false) {
                             actions.Meditar ();
                         }
