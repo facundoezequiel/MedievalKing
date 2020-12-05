@@ -11,9 +11,15 @@ public class GameManager : MonoBehaviour {
     public bool levelComplete = false;
     public bool gameOver = false;
     public states state;
+    // Time
+    public int minutos = 0;
+    public int segundos = 0;
+    // Puntaje 
+    public int puntaje = 0;
     // Canvas
     public GameObject gameOverUI;
     public GameObject gameTerminadoUI;
+    public Text TimeText;
     public enum states {
         PLAYING,
         GAMEOVER,
@@ -26,6 +32,9 @@ public class GameManager : MonoBehaviour {
         gameOver = false;
         gameOverUI.gameObject.SetActive (false);
         gameTerminadoUI.gameObject.SetActive (false);
+        segundos = 0;
+        minutos = 0;
+        timeManager ();
     }
 
     void Update () {
@@ -38,11 +47,59 @@ public class GameManager : MonoBehaviour {
             gameOver = true;
             gameOverUI.gameObject.SetActive (true);
             gameTerminadoUI.gameObject.SetActive (false);
+            calcularPuntaje();
         } else if (bossEnterEscapePoint == true) {
             state = states.LEVELCOMPLETE;
             levelComplete = true;
             gameOverUI.gameObject.SetActive (false);
             gameTerminadoUI.gameObject.SetActive (true);
+            calcularPuntaje();
+        }
+    }
+
+    public void timeManager () {
+        mostrarTiempo();
+        if (state == states.PLAYING) {
+            Invoke("addSecond", 1);
+        }
+    }
+
+    public void mostrarTiempo() {
+        if (segundos < 10 && minutos < 10) {
+            TimeText.text = "0" + minutos.ToString() + ":" + "0" + segundos.ToString();
+        } 
+        if (segundos >= 10 && minutos < 10) {
+            TimeText.text = "0" + minutos.ToString() + ":" + segundos.ToString();
+        }
+        if (segundos >= 10 && minutos >= 10) {
+            TimeText.text = minutos.ToString() + ":" + segundos.ToString();
+        }
+        if (segundos > 10 && minutos >= 10) {
+            TimeText.text = minutos.ToString() + ":" + "0" + segundos.ToString();
+        }
+    }
+
+    public void addSecond () {
+        segundos = segundos + 1;
+        if (segundos == 60) {
+            segundos = 0;
+            minutos = minutos + 1;
+        }
+        timeManager();
+    }
+
+    public void calcularPuntaje() {
+        if (minutos <= 1) {
+            puntaje = puntaje + 1000;
+        }
+        if (minutos == 2) {
+            puntaje = puntaje + 500;
+        }
+        if (minutos == 3) {
+            puntaje = puntaje + 200;
+        }
+        if (minutos >= 4) {
+            return;
         }
     }
 }
