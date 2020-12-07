@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class TablaDePuntaje : MonoBehaviour {
     public Transform container;
     public Transform template;
-    public List<PuntajeEntrada> puntajeEntradaList;
     public List<Transform> puntajeEntradaTransformList;
 
     // BUSCAR ESTO
@@ -16,23 +15,36 @@ public class TablaDePuntaje : MonoBehaviour {
         template = container.Find ("PuntajeTemplate");
         // Apago el template de puntaje
         template.gameObject.SetActive (false);
-        // BUSCAR ESTO
-        puntajeEntradaList = new List<PuntajeEntrada>() {
-            new PuntajeEntrada{ score = 521, name = "AAA"},
-            new PuntajeEntrada{ score = 521, name = "AAA"},
-            new PuntajeEntrada{ score = 521, name = "AAA"},
-            new PuntajeEntrada{ score = 521, name = "AAA"},
-            new PuntajeEntrada{ score = 521, name = "AAA"},
-            new PuntajeEntrada{ score = 521, name = "AAA"},
-            new PuntajeEntrada{ score = 521, name = "AAA"},
-            new PuntajeEntrada{ score = 521, name = "AAA"},
-        };
+
+        AddPuntajeEntrada(1000, "PRUEBA");
+
+        string jsonString = PlayerPrefs.GetString("TablaDePuntaje");
+        Puntajes puntajes = JsonUtility.FromJson<Puntajes>(jsonString);
+
+        // Ordenar las entradas por puntaje maximo
+        for (int i = 0; i < puntajes.puntajeEntradaList.Count; i++) {
+            for (int j = i + 1; j < puntajes.puntajeEntradaList.Count; j++) {
+                if (puntajes.puntajeEntradaList[j].score > puntajes.puntajeEntradaList[i].score) {
+                    PuntajeEntrada tmp = puntajes.puntajeEntradaList[i];
+                    puntajes.puntajeEntradaList[i] = puntajes.puntajeEntradaList[j];
+                    puntajes.puntajeEntradaList[j] = tmp;
+                }
+            }
+        }
 
         // BUSCAR ESTO
-        puntajeEntradaTransformList = new List<Transform>();
-        foreach (PuntajeEntrada puntajeEntrada in puntajeEntradaList) {
-            CrearEntradaPuntaje(puntajeEntrada, container, puntajeEntradaTransformList);
+        puntajeEntradaTransformList = new List<Transform> ();
+        foreach (PuntajeEntrada puntajeEntrada in puntajes.puntajeEntradaList) {
+            CrearEntradaPuntaje (puntajeEntrada, container, puntajeEntradaTransformList);
         }
+        // BUSCAR ESTO ESTO CREA UN JSON DE LA LISTA CON TODO LOS PUNTAJES PARA GUARDAR EL JUEGO
+        /*
+        Puntajes puntajes = new Puntajes { puntajeEntradaList = puntajeEntradaList };
+        string json = JsonUtility.ToJson (puntajes);
+        PlayerPrefs.SetString ("TablaDePuntaje", json);
+        PlayerPrefs.Save ();
+        Debug.Log (PlayerPrefs.GetString ("TablaDePuntaje"));
+        */
     }
 
     private void CrearEntradaPuntaje (PuntajeEntrada puntajeEntrada, Transform container, List<Transform> transformList) {
@@ -79,10 +91,29 @@ public class TablaDePuntaje : MonoBehaviour {
         // Busco el texto de nombre y muestro el nombre
         puntajeTransform.Find ("NameText").GetComponent<Text> ().text = name;
         // BUSCAR ESTO
-        transformList.Add(puntajeTransform);
+        transformList.Add (puntajeTransform);
+    }
+
+    private void AddPuntajeEntrada(int score, string name) {
+        // Crea un puntaje
+        PuntajeEntrada puntajeEntrada = new PuntajeEntrada { score = score, name = name};
+        // Carga Guarda Puntajes
+        string jsonString = PlayerPrefs.GetString("TablaDePuntaje");
+        Puntajes puntajes = JsonUtility.FromJson<Puntajes>(jsonString);
+        // Agrega una nueva entrada
+        puntajes.puntajeEntradaList.Add(puntajeEntrada);
+        // Guarda y actualiza los puntajes
+        string json = JsonUtility.ToJson(puntajes);
+        PlayerPrefs.SetString ("TablaDePuntaje", json);
+        PlayerPrefs.Save ();
+    }
+
+    private class Puntajes {
+        public List<PuntajeEntrada> puntajeEntradaList;
     }
 
     // Representa una sola entrada de highscore
+    [System.Serializable]
     public class PuntajeEntrada {
         public int score;
         public string name;
