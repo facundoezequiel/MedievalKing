@@ -14,8 +14,10 @@ public class GameManager : MonoBehaviour {
     // Time
     public int minutos = 0;
     public int segundos = 0;
-    // Puntaje 
+    // Puntaje partida actual
+    public string playerName = "Player"; 
     public int puntaje = 0;
+    // Puntajes guardados
     // Canvas
     public GameObject gameOverUI;
     public GameObject gameTerminadoUI;
@@ -74,16 +76,16 @@ public class GameManager : MonoBehaviour {
         if (segundos >= 10 && minutos >= 10) {
             TimeText.text = minutos.ToString() + ":" + segundos.ToString();
         }
-        if (segundos > 10 && minutos >= 10) {
+        if (segundos < 10 && minutos >= 10) {
             TimeText.text = minutos.ToString() + ":" + "0" + segundos.ToString();
         }
     }
 
     public void addSecond () {
-        segundos = segundos + 1;
+        segundos++;
         if (segundos == 60) {
             segundos = 0;
-            minutos = minutos + 1;
+            minutos++;
         }
         timeManager();
     }
