@@ -39,14 +39,6 @@ public class TablaDePuntaje : MonoBehaviour {
         foreach (PuntajeEntrada puntajeEntrada in puntajes.puntajeEntradaList) {
             CrearEntradaPuntaje (puntajeEntrada, container, puntajeEntradaTransformList);
         }
-        // BUSCAR ESTO ESTO CREA UN JSON DE LA LISTA CON TODO LOS PUNTAJES PARA GUARDAR EL JUEGO
-        /*
-        Puntajes puntajes = new Puntajes { puntajeEntradaList = puntajeEntradaList };
-        string json = JsonUtility.ToJson (puntajes);
-        PlayerPrefs.SetString ("TablaDePuntaje", json);
-        PlayerPrefs.Save ();
-        Debug.Log (PlayerPrefs.GetString ("TablaDePuntaje"));
-        */
     }
 
     public void CrearEntradaPuntaje (PuntajeEntrada puntajeEntrada, Transform container, List<Transform> transformList) {

@@ -16,21 +16,25 @@ public class GameManager : MonoBehaviour {
     public int minutos = 0;
     public int segundos = 0;
     // Puntaje partida actual
-    public string playerName = "Player";
+    public string playerName;
     public int puntaje = 0;
     // Canvas
     public GameObject gameOverUI;
     public GameObject gameTerminadoUI;
+    public NameTransfer nameInputContainer;
     public Text TimeText;
+    public GameObject gamePlayingUI;
+    public GameObject joystick;
     public enum states {
         PLAYING,
         GAMEOVER,
-        LEVELCOMPLETE
+        LEVELCOMPLETE,
+        INSERTNAME,
     }
 
     void Start () {
-        // Cunado comienza el juego, el estado esta en JUGANDO
-        state = states.PLAYING;
+        // Cunado comienza el juego, primero debe poner el nombre
+        state = states.INSERTNAME;
         // El nivel no esta terminado
         levelComplete = false;
         // El juegador no perdio
@@ -41,11 +45,15 @@ public class GameManager : MonoBehaviour {
         gameTerminadoUI.gameObject.SetActive (false);
         // Desactivo la tabla de puntajes
         tablaDePuntaje.gameObject.SetActive (false);
+        // Muestro la UI del input para completar el nombre
+        nameInputContainer.gameObject.SetActive (true);
         // Pongo los segundos y lo minutos en 0
         segundos = 0;
         minutos = 0;
-        // Llammo la funcion que controla el tiempo asi empieza a correr
-        timeManager ();
+        // Desactivo la UI de playing
+        gamePlayingUI.gameObject.SetActive (false);
+        // Desactivo el joystick
+        joystick.gameObject.SetActive (false);
     }
 
     void Update () {
@@ -55,6 +63,21 @@ public class GameManager : MonoBehaviour {
 
     // Funcion que controla los estados del juego
     public void statesManager () {
+        // Si se completo el input del nombre
+        if (nameInputContainer.inputCompletado == true) {
+            // Comienza el juego, por lo tanto el estado pasa a JUGANDO
+            state = states.PLAYING;
+            // Pongo el boleano del input completado en false para que no entre todo el tiempo el if
+            nameInputContainer.inputCompletado = false;
+            // Desactivo el input UI
+            nameInputContainer.gameObject.SetActive (false);
+            // Activo la UI del playing
+            gamePlayingUI.gameObject.SetActive (true);
+            // Activo el joystick
+            joystick.gameObject.SetActive (true);
+            // Llammo la funcion que controla el tiempo asi empieza a correr
+            timeManager ();
+        }
         // Si el jugador perdio toda la vida
         if (character.stats.characterLive < 1) {
             // El estado pasa estar en JUEGO PERDIDO
@@ -64,6 +87,11 @@ public class GameManager : MonoBehaviour {
             // Muestro la UI que corresponde
             gameOverUI.gameObject.SetActive (true);
             gameTerminadoUI.gameObject.SetActive (false);
+            nameInputContainer.gameObject.SetActive (false);
+            // Desactivo la UI de playing
+            gamePlayingUI.gameObject.SetActive (false);
+            // Desactivo el joystick
+            joystick.gameObject.SetActive (false);
             // Llamo funcion 
             calcularPuntaje ();
             // Agrega una nueva entrada de puntaje con el puntaje y nombre de la partida actual
@@ -73,7 +101,12 @@ public class GameManager : MonoBehaviour {
             state = states.LEVELCOMPLETE;
             levelComplete = true;
             gameOverUI.gameObject.SetActive (false);
+            nameInputContainer.gameObject.SetActive (false);
             gameTerminadoUI.gameObject.SetActive (true);
+            // Desactivo la UI de playing
+            gamePlayingUI.gameObject.SetActive (false);
+            // Desactivo el joystick
+            joystick.gameObject.SetActive (false);
             calcularPuntaje ();
             // Agrega una nueva entrada de puntaje con el puntaje y nombre de la partida actual
             // Activo la tabla
