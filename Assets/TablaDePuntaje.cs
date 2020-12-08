@@ -7,7 +7,8 @@ public class TablaDePuntaje : MonoBehaviour {
     public Transform container;
     public Transform template;
     public List<Transform> puntajeEntradaTransformList;
-    
+    public GameManager gameManager;
+
     // BUSCAR ESTO
     public void Awake () {
         // Busca a estos objectos por su nombre
@@ -16,7 +17,8 @@ public class TablaDePuntaje : MonoBehaviour {
         // Apago el template de puntaje
         template.gameObject.SetActive (false);
 
-        //AddPuntajeEntrada(59000, "PRUEBA2");
+        // Funcion que agrega una entrada a la lista, le paso el puntaje y el nombre desde el GameManager
+        AddPuntajeEntrada (gameManager.puntaje, gameManager.playerName.ToString ());
 
         string jsonString = PlayerPrefs.GetString ("TablaDePuntaje");
         Puntajes puntajes = JsonUtility.FromJson<Puntajes> (jsonString);
