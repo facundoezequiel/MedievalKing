@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour {
     public Character character;
     public FinalBoss finalBoss;
+    public TablaDePuntaje tablaDePuntaje;
     public bool bossEnterEscapePoint = false;
     public bool levelComplete = false;
     public bool gameOver = false;
@@ -17,7 +18,6 @@ public class GameManager : MonoBehaviour {
     // Puntaje partida actual
     public string playerName = "Player"; 
     public int puntaje = 0;
-    // Puntajes guardados
     // Canvas
     public GameObject gameOverUI;
     public GameObject gameTerminadoUI;
@@ -50,12 +50,16 @@ public class GameManager : MonoBehaviour {
             gameOverUI.gameObject.SetActive (true);
             gameTerminadoUI.gameObject.SetActive (false);
             calcularPuntaje();
+            // Agrega una nueva entrada de puntaje con el puntaje y nombre de la partida actual
+            tablaDePuntaje.AddPuntajeEntrada(puntaje, playerName);
         } else if (bossEnterEscapePoint == true) {
             state = states.LEVELCOMPLETE;
             levelComplete = true;
             gameOverUI.gameObject.SetActive (false);
             gameTerminadoUI.gameObject.SetActive (true);
             calcularPuntaje();
+            // Agrega una nueva entrada de puntaje con el puntaje y nombre de la partida actual
+            tablaDePuntaje.AddPuntajeEntrada(puntaje, playerName);
         }
     }
 
