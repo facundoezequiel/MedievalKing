@@ -42,9 +42,9 @@ public class TablaDePuntaje : MonoBehaviour {
     }
 
     public void CrearEntradaPuntaje (PuntajeEntrada puntajeEntrada, Transform container, List<Transform> transformList) {
-        if ((transformList.Count + 1) <= 10) {
+        if ((transformList.Count + 1) <= 5) {
             // Establezco la diferencia de altura entre los puntajes
-            float puntajeAltura = 30f;
+            float puntajeAltura = 45f;
             // BUSCAR ESTO
             Transform puntajeTransform = Instantiate (template, container);
             // BUSCAR ESTO
@@ -118,9 +118,10 @@ public class TablaDePuntaje : MonoBehaviour {
     // Esta es la entrada que se va a agregar al final de la partida
     [System.Serializable]
     public class PuntajeEntrada {
+        // Tanto score como name tienen que valer algo para que funcione en Android
         // Toma el score del gameManager
-        public int score;
+        public int score = 0;
         // Toma el nombre del jugador del gameManager
-        public string name;
+        public string name = "Player";
     }
 }

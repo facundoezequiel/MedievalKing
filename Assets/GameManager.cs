@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour {
     public Character character;
     public FinalBoss finalBoss;
     public TablaDePuntaje tablaDePuntaje;
+    public bool jugandoPartida = false;
+    public bool terminoPartida = false;
     public bool bossEnterEscapePoint = false;
     public bool levelComplete = false;
     public bool gameOver = false;
@@ -22,9 +24,16 @@ public class GameManager : MonoBehaviour {
     public GameObject gameOverUI;
     public GameObject gameTerminadoUI;
     public NameTransfer nameInputContainer;
+    // Playing UI
     public Text TimeText;
-    public GameObject gamePlayingUI;
+    public Text HeartText;
+    public Text CoinsText;
+    public Text ManaText;
+    public Image HeartImage;
+    public Image CoinsImage;
+    public Image ManaImage;
     public GameObject joystick;
+    // States
     public enum states {
         PLAYING,
         GAMEOVER,
@@ -51,9 +60,17 @@ public class GameManager : MonoBehaviour {
         segundos = 0;
         minutos = 0;
         // Desactivo la UI de playing
-        gamePlayingUI.gameObject.SetActive (false);
+        TimeText.gameObject.SetActive (false);
+        ManaText.gameObject.SetActive (false);
+        CoinsText.gameObject.SetActive (false);
+        HeartText.gameObject.SetActive (false);
+        ManaImage.gameObject.SetActive (false);
+        CoinsImage.gameObject.SetActive (false);
+        HeartImage.gameObject.SetActive (false);
         // Desactivo el joystick
         joystick.gameObject.SetActive (false);
+        // Pongo el boleano de que la partida termino en false
+        terminoPartida = false;
     }
 
     void Update () {
@@ -64,7 +81,7 @@ public class GameManager : MonoBehaviour {
     // Funcion que controla los estados del juego
     public void statesManager () {
         // Si se completo el input del nombre
-        if (nameInputContainer.inputCompletado == true) {
+        if (nameInputContainer.inputCompletado == true && terminoPartida == false) {
             // Comienza el juego, por lo tanto el estado pasa a JUGANDO
             state = states.PLAYING;
             // Pongo el boleano del input completado en false para que no entre todo el tiempo el if
@@ -72,14 +89,22 @@ public class GameManager : MonoBehaviour {
             // Desactivo el input UI
             nameInputContainer.gameObject.SetActive (false);
             // Activo la UI del playing
-            gamePlayingUI.gameObject.SetActive (true);
+            TimeText.gameObject.SetActive (true);
+            ManaText.gameObject.SetActive (true);
+            CoinsText.gameObject.SetActive (true);
+            HeartText.gameObject.SetActive (true);
+            ManaImage.gameObject.SetActive (true);
+            CoinsImage.gameObject.SetActive (true);
+            HeartImage.gameObject.SetActive (true);
             // Activo el joystick
             joystick.gameObject.SetActive (true);
             // Llammo la funcion que controla el tiempo asi empieza a correr
             timeManager ();
+            // Pongo el boleano de jugando en true asi se activan los inputs
+            jugandoPartida = true;
         }
         // Si el jugador perdio toda la vida
-        if (character.stats.characterLive < 1) {
+        if (character.stats.characterLive < 1 && terminoPartida == false) {
             // El estado pasa estar en JUEGO PERDIDO
             state = states.GAMEOVER;
             // El juegador perdio
@@ -89,7 +114,13 @@ public class GameManager : MonoBehaviour {
             gameTerminadoUI.gameObject.SetActive (false);
             nameInputContainer.gameObject.SetActive (false);
             // Desactivo la UI de playing
-            gamePlayingUI.gameObject.SetActive (false);
+            TimeText.gameObject.SetActive (false);
+            ManaText.gameObject.SetActive (false);
+            CoinsText.gameObject.SetActive (false);
+            HeartText.gameObject.SetActive (false);
+            ManaImage.gameObject.SetActive (false);
+            CoinsImage.gameObject.SetActive (false);
+            HeartImage.gameObject.SetActive (false);
             // Desactivo el joystick
             joystick.gameObject.SetActive (false);
             // Llamo funcion 
@@ -97,20 +128,34 @@ public class GameManager : MonoBehaviour {
             // Agrega una nueva entrada de puntaje con el puntaje y nombre de la partida actual
             // Activo la tabla
             tablaDePuntaje.gameObject.SetActive (true);
-        } else if (bossEnterEscapePoint == true) {
+            // Pongo el boleano de jugando en false
+            jugandoPartida = false;
+            terminoPartida = true;
+        } else if (bossEnterEscapePoint == true && terminoPartida == false) {
             state = states.LEVELCOMPLETE;
             levelComplete = true;
             gameOverUI.gameObject.SetActive (false);
             nameInputContainer.gameObject.SetActive (false);
             gameTerminadoUI.gameObject.SetActive (true);
             // Desactivo la UI de playing
-            gamePlayingUI.gameObject.SetActive (false);
+            TimeText.gameObject.SetActive (false);
+            ManaText.gameObject.SetActive (false);
+            CoinsText.gameObject.SetActive (false);
+            HeartText.gameObject.SetActive (false);
+            ManaImage.gameObject.SetActive (false);
+            CoinsImage.gameObject.SetActive (false);
+            HeartImage.gameObject.SetActive (false);
             // Desactivo el joystick
             joystick.gameObject.SetActive (false);
+            // Le sumo puntos por ganar
+            puntaje = puntaje + 500000;
             calcularPuntaje ();
             // Agrega una nueva entrada de puntaje con el puntaje y nombre de la partida actual
             // Activo la tabla
             tablaDePuntaje.gameObject.SetActive (true);
+            // Pongo el boleano de jugando en false
+            jugandoPartida = false;
+            terminoPartida = true;
         }
     }
 
@@ -163,23 +208,31 @@ public class GameManager : MonoBehaviour {
 
     // Funcion que calcula el puntaje en base al tiempo de partida
     public void calcularPuntaje () {
-        // Si tardo menos de dos minutos
-        if (minutos <= 1) {
-            // Suma 1000 puntos
-            puntaje = puntaje + 60000;
+        // Si el juego no termino por muerte del personaje
+        if (state != states.GAMEOVER) {
+            // Si tardo menos de dos minutos
+            if (minutos <= 1) {
+                // Suma 1000 puntos
+                puntaje = puntaje + 500000;
+            }
+            // Si tardo menos de tres minutos
+            if (minutos == 2) {
+                // Suma 500 puntos
+                puntaje = puntaje + 300000;
+            }
+            // Si tardo menos de cuatro minutos
+            if (minutos == 3) {
+                // Suma 200 puntos
+                puntaje = puntaje + 100000;
+            }
+            // Si tardo 4 o mas minutos
+            if (minutos >= 4) {
+                // No suma puntos
+                return;
+            }
         }
-        // Si tardo menos de tres minutos
-        if (minutos == 2) {
-            // Suma 500 puntos
-            puntaje = puntaje + 500;
-        }
-        // Si tardo menos de cuatro minutos
-        if (minutos == 3) {
-            // Suma 200 puntos
-            puntaje = puntaje + 200;
-        }
-        // Si tardo 4 o mas minutos
-        if (minutos >= 4) {
+        // Si el juego termina porque el personaje murio, no suma puntos
+        else {
             // No suma puntos
             return;
         }

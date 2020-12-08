@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class NameTransfer : MonoBehaviour {
     public GameObject inputField;
     public GameObject textDisplay;
+    public GameObject botonIngrear;
+    public GameObject inputEntero;
     public GameManager gameManager;
     public Text TextoContador;
     public int contador;
@@ -28,6 +30,9 @@ public class NameTransfer : MonoBehaviour {
         textDisplay.GetComponent<Text> ().text = "Bienvenidx, " + gameManager.playerName + " a Medieval King";
         // Muestro el texto del contador
         TextoContador.gameObject.SetActive (true);
+        // Dejo de mostrar el input y el boton
+        inputEntero.gameObject.SetActive (false);
+        botonIngrear.gameObject.SetActive (false);
         // Llamo a la funcion que inicia la contador
         IniciarContador ();
     }

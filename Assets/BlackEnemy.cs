@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class BlackEnemy : MonoBehaviour {
     public Character character;
+    public GameManager gameManager;
     public Animator anim;
     private Transform target;
     public GameObject FloatingTextPrefab;
@@ -162,6 +163,7 @@ public class BlackEnemy : MonoBehaviour {
     public void BlackEnemyDie () {
         enemyAttackingZone = false;
         characterAttackingZone = false;
+        gameManager.puntaje = gameManager.puntaje + 100000;
         Destroy (this.gameObject);
     }
 }
