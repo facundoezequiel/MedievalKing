@@ -164,6 +164,7 @@ public class BlackEnemy : MonoBehaviour {
         enemyAttackingZone = false;
         characterAttackingZone = false;
         gameManager.puntaje = gameManager.puntaje + 100000;
+        gameManager.UpdatePointsUI();
         Destroy (this.gameObject);
     }
 }

@@ -10,6 +10,7 @@ public class Coin : MonoBehaviour {
     private void OnTriggerEnter2D (Collider2D collider) {
         if (collider.tag == "Character") {
             gameManager.puntaje = gameManager.puntaje + 25000;
+            gameManager.UpdatePointsUI();
             CoinAnim.Play ("Base Layer.CoinImage", 0, 0.25f);
             character.stats.takeCoin = true;
             character.stats.coins = character.stats.coins + 1;

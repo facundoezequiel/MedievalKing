@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour {
     public Text HeartText;
     public Text CoinsText;
     public Text ManaText;
+    public Text PointsText;
     public Image HeartImage;
     public Image CoinsImage;
     public Image ManaImage;
@@ -64,6 +65,7 @@ public class GameManager : MonoBehaviour {
         ManaText.gameObject.SetActive (false);
         CoinsText.gameObject.SetActive (false);
         HeartText.gameObject.SetActive (false);
+        PointsText.gameObject.SetActive (false);
         ManaImage.gameObject.SetActive (false);
         CoinsImage.gameObject.SetActive (false);
         HeartImage.gameObject.SetActive (false);
@@ -93,6 +95,7 @@ public class GameManager : MonoBehaviour {
             ManaText.gameObject.SetActive (true);
             CoinsText.gameObject.SetActive (true);
             HeartText.gameObject.SetActive (true);
+            PointsText.gameObject.SetActive (true);
             ManaImage.gameObject.SetActive (true);
             CoinsImage.gameObject.SetActive (true);
             HeartImage.gameObject.SetActive (true);
@@ -118,6 +121,7 @@ public class GameManager : MonoBehaviour {
             ManaText.gameObject.SetActive (false);
             CoinsText.gameObject.SetActive (false);
             HeartText.gameObject.SetActive (false);
+            PointsText.gameObject.SetActive (false);
             ManaImage.gameObject.SetActive (false);
             CoinsImage.gameObject.SetActive (false);
             HeartImage.gameObject.SetActive (false);
@@ -142,6 +146,7 @@ public class GameManager : MonoBehaviour {
             ManaText.gameObject.SetActive (false);
             CoinsText.gameObject.SetActive (false);
             HeartText.gameObject.SetActive (false);
+            PointsText.gameObject.SetActive (false);
             ManaImage.gameObject.SetActive (false);
             CoinsImage.gameObject.SetActive (false);
             HeartImage.gameObject.SetActive (false);
@@ -149,6 +154,7 @@ public class GameManager : MonoBehaviour {
             joystick.gameObject.SetActive (false);
             // Le sumo puntos por ganar
             puntaje = puntaje + 500000;
+            UpdatePointsUI();
             calcularPuntaje ();
             // Agrega una nueva entrada de puntaje con el puntaje y nombre de la partida actual
             // Activo la tabla
@@ -236,5 +242,11 @@ public class GameManager : MonoBehaviour {
             // No suma puntos
             return;
         }
+    }
+
+    // Funcion que actualiza los puntos en la UI, la llamo cada vez que cambia el puntaje
+    public void UpdatePointsUI() {
+        // Muestro los puntos actualizados
+        PointsText.text = puntaje.ToString ();
     }
 }

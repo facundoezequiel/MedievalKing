@@ -30,6 +30,7 @@ public class PowerUpsManager : MonoBehaviour {
             character.actions.ShowFloatingText ();
             extra50Live = false;
             gameManager.puntaje = gameManager.puntaje + 50000;
+            gameManager.UpdatePointsUI();
         }
         // +3 de fuerza a personaje
         if (extra3Force == true) {
@@ -42,6 +43,7 @@ public class PowerUpsManager : MonoBehaviour {
             character.actions.ShowFloatingText ();
             extra3Force = false;
             gameManager.puntaje = gameManager.puntaje + 50000;
+            gameManager.UpdatePointsUI();
         }
         // +50 de mana a personaje
         if (extra50Mana == true) {
@@ -56,6 +58,7 @@ public class PowerUpsManager : MonoBehaviour {
             character.actions.ShowFloatingText ();
             extra50Mana = false;
             gameManager.puntaje = gameManager.puntaje + 50000;
+            gameManager.UpdatePointsUI();
         }
     }
 }
