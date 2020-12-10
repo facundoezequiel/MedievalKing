@@ -9,8 +9,8 @@ public class TablaDePuntaje : MonoBehaviour {
     public List<Transform> puntajeEntradaTransformList;
     public GameManager gameManager;
 
-    // BUSCAR ESTO
-    public void Awake () {
+    //
+    public void Start () {
         // Busca a estos objectos por su nombre
         container = transform.Find ("PuntajeContainer");
         template = container.Find ("PuntajeTemplate");
@@ -20,6 +20,7 @@ public class TablaDePuntaje : MonoBehaviour {
         // Funcion que agrega una entrada a la lista, le paso el puntaje y el nombre desde el GameManager
         AddPuntajeEntrada (gameManager.puntaje, gameManager.playerName.ToString ());
 
+        // BUSCAR ESTO
         string jsonString = PlayerPrefs.GetString ("TablaDePuntaje");
         Puntajes puntajes = JsonUtility.FromJson<Puntajes> (jsonString);
 
@@ -34,22 +35,26 @@ public class TablaDePuntaje : MonoBehaviour {
             }
         }
 
-        // BUSCAR ESTO
+        // Crea la lista
         puntajeEntradaTransformList = new List<Transform> ();
+        // BUSCAR ESTO
         foreach (PuntajeEntrada puntajeEntrada in puntajes.puntajeEntradaList) {
+            // Funcion que crea las entradas
             CrearEntradaPuntaje (puntajeEntrada, container, puntajeEntradaTransformList);
         }
     }
 
+    // Funcion que crea las entradas
     public void CrearEntradaPuntaje (PuntajeEntrada puntajeEntrada, Transform container, List<Transform> transformList) {
+        // Muestre hasta la posicion 5 de la lista (el count es como un for pero de lista)
         if ((transformList.Count + 1) <= 5) {
             // Establezco la diferencia de altura entre los puntajes
             float puntajeAltura = 45f;
-            // BUSCAR ESTO
+            // Pone el template dentro de container
             Transform puntajeTransform = Instantiate (template, container);
-            // BUSCAR ESTO
+            // Lo posiciona arriba de todo
             RectTransform puntajeRectTransform = puntajeTransform.GetComponent<RectTransform> ();
-            // Posiciono el nuevo puntaje con una diferencia de altura en Y sobre el ultimo
+            // Posiciono el nuevo puntaje con una diferencia de altura en Y sobre el ultimo (lo multiplica)
             puntajeRectTransform.anchoredPosition = new Vector2 (0, -puntajeAltura * transformList.Count);
             // Muestro el nuevo puntaje
             puntajeTransform.gameObject.SetActive (true);
@@ -61,12 +66,12 @@ public class TablaDePuntaje : MonoBehaviour {
             switch (ranking) {
                 // En casa caso, muestro el texto correspondiente en el string del ranking
                 // Si ranking no es 1, 2 o 3 entra el default
-                // BUSCAR BREAK
                 default : rankingString = ranking + "TH";
                 break;
                 // Si llega a ser 1, 2 o 3 (Esto es solo para poner correctamente la numeracion)
                 case 1:
                         rankingString = "1ST";
+                    // Sale de la funcion
                     break;
                 case 2:
                         rankingString = "2ST";
@@ -76,6 +81,7 @@ public class TablaDePuntaje : MonoBehaviour {
                     break;
             }
 
+            // Funcion que muestra el puntaje y lo agrega a la lista
             MostrarPuntaje ();
 
             void MostrarPuntaje () {
@@ -89,7 +95,7 @@ public class TablaDePuntaje : MonoBehaviour {
                 string name = puntajeEntrada.name;
                 // Busco el texto de nombre y muestro el nombre
                 puntajeTransform.Find ("NameText").GetComponent<Text> ().text = name;
-                // BUSCAR ESTO
+                // Agrega el puntaje a la lista
                 transformList.Add (puntajeTransform);
             }
         }
