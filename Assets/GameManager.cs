@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour {
     // Puntaje partida actual
     public string playerName;
     public int puntaje = 0;
+    public int puntajeMaximo = 3500000;
     // Canvas
     public GameObject gameOverUI;
     public GameObject gameTerminadoUI;
